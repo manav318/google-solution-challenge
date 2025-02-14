@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const  options= () => {
     const [clickedLink, setClickedLink] = useState(""); 
     return ( 
-        <div className='absolute text-white flex items-center justify-between gap-1 text-xl right-1 bottom-1'>
+        <div className='absolute text-white font-semibold flex items-center justify-between gap-1 text-xl right-1 bottom-1'>
             <Link
                 to="/"
                 className="w-24 py-1 text-center  cursor-pointer hover:scale-105"

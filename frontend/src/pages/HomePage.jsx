@@ -1,11 +1,19 @@
 import React from "react";
-
-const home = () => {
+import Welcome from "../components/Welcome.jsx"
+import AboutUs from "../components/AboutUs.jsx"
+import Partners from "../components/Partners.jsx"
+import PastCampaignHome from "../components/PastCampaignHome.jsx"
+import BigNoHome from "../components/BigNoHome.jsx"
+const Home = () => {
     return ( 
         <div>
-            hello home page
+            <Welcome/>
+            <AboutUs/>
+            <Partners/>
+            <PastCampaignHome/>
+            <BigNoHome/>
         </div>
-        );
+    );
 }
  
-export default home;
+export default Home;
