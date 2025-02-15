@@ -13,7 +13,7 @@ const CreateCamp = () => {
             <div className="absolute top-3 right-24">
                 <img src="/pics/createCamp.png" alt="" />
             </div>
-            <div className="w-36 h-12 cursor-pointer bg-blue-600  text-white font-semibold text-4xl text-center rounded-md absolute bottom-16 left-44 shadow-2xl">
+            <div className="w-36 h-12 cursor-pointer bg-blue-600  text-white font-semibold text-4xl text-center rounded-md absolute bottom-16 left-44 shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
                 create
             </div>
         </div>
