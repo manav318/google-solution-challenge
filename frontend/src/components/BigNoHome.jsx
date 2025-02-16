@@ -52,7 +52,7 @@ const Count = () => {
                 autoPlay={false} // Prevent autoplay before visible
                 loop 
                 muted 
-                className="absolute h-[1705px] w-[500px] object-cover transform -rotate-90"
+                className="absolute h-[1540px] w-[500px] object-cover mx-auto transform -rotate-90"
             >
                 <source src="/videos/wave_vid.mp4" type="video/mp4" />
                 Your browser does not support the video tag.

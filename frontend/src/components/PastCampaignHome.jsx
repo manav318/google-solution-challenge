@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const past = () => {
     return (
-        <div className="h-[1200px] w-[1300px] border-0 m-0 p-10 ml-44 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div className="h-[1200px] w-[1300px] border-0 m-0 p-10 mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
             <h2 className="text-6xl font-serif text-blue-600 mb-24 text-center">
                 What Our Community <br /> Has Been Up To.
             </h2>
