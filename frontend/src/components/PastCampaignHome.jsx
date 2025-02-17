@@ -8,7 +8,7 @@ const past = () => {
                 What Our Community <br /> Has Been Up To.
             </h2>
             <div className="relative h-[900px]">
-                <div class="w-[3px] h-[760px] bg-black absolute left-[650px] top-0"></div>
+                <div className="w-[3px] h-[760px] bg-black absolute left-[650px] top-0"></div>
                 <div className="text-5xl text-black font-bold absolute left-[635px] top-16">~</div>
                 <div className="text-5xl text-black font-bold absolute left-[635px] top-80">~</div>
                 <div className="text-5xl text-black font-bold absolute left-[635px] top-[620px]">~</div>
@@ -67,8 +67,6 @@ const past = () => {
                     and Many More...
                 </Link>
             </div>
-
-
         </div>
     );
 }
