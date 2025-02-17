@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage.jsx"
 import Store from "./pages/Store.jsx"
 import Login from "./pages/Login.jsx"
 import SignUp from "./pages/SignUp.jsx"
+import CreateCampaign from "./pages/CreateCampaign.jsx"
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/store" element={<Store />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/create-campaign" element={<CreateCampaign />} />
         </Routes>
       </div>
     </>

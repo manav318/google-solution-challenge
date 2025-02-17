@@ -16,7 +16,6 @@ const CreateCamp = () => {
             <div className="w-56 h-12 cursor-pointer bg-blue-600 text-white font-semibold text-2xl flex items-center justify-center gap-2 rounded-md absolute bottom-16 left-44 shadow-2xl">
                 Create <FaArrowRight className="text-3xl" />
             </div>
-
         </div>
     );
 }

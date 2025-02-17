@@ -2,7 +2,6 @@ import React from "react";
 import Slider1 from "../components/Slider1.jsx"
 import { Link } from "react-router-dom";
 
-
 const partners = () => {
     return (  
         <div className="w-screen bg-white-400 m-0 h-[600px] relative items-center py-4">
