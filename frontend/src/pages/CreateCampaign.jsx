@@ -1,139 +1,103 @@
 import React, { useState } from "react";
 
-const App = () => {
-  const [formData, setFormData] = useState({
-    campaignName: "",
-    location: "",
-    campaignCode: "",
-    campaignGoal: "",
-    startDate: "",
-    endDate: "",
-    category: "",
-  });
+const CampDetails = () => {
+  const [campName, setCampName] = useState('');
+  const [campCode, setCampCode] = useState('');
+  const [campGoal, setCampGoal] = useState('');
+  const [campLocation, setCampLocation] = useState('');
+  const [campStart, setCampStart] = useState('');
+  const [campEnd, setCampEnd] = useState('');
+  const [campCategory, setCampCategory] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleCancel = () => {
-    setFormData({
-      campaignName: "",
-      location: "",
-      campaignCode: "",
-      campaignGoal: "",
-      startDate: "",
-      endDate: "",
-      category: "",
-    });
-  };
-
-  const handleSubmit = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    // Add your form submission logic here
   };
 
   return (
-    <div className="page-container">
-      <h1>Create Campaign</h1>
-      <form onSubmit={handleSubmit} className="form-container">
-        <div className="form-section">
-          <div className="section-left">
-            <div className="form-group">
-              <label>Campaign Name</label>
-              <input
-                type="text"
-                name="campaignName"
-                value={formData.campaignName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Location</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>6-Digit Campaign Code</label>
-              <input
-                type="text"
-                name="campaignCode"
-                value={formData.campaignCode}
-                onChange={handleChange}
-                maxLength="6"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Campaign Goal</label>
-              <input
-                type="text"
-                name="campaignGoal"
-                value={formData.campaignGoal}
-                onChange={handleChange}
-                required
-              />
-            </div>
+    <div className="mt-[6vh] h-[94vh] w-full relative">
+      <div className="absolute top-[2vh] left-[4vw] font-semibold text-blue-500 text-5xl">
+        CREATE CAMPAIGN
+      </div>
+      <form onSubmit={submitHandler} className="w-full h-[81vh] absolute top-[12vh] px-[10vh] py-5 flex justify-between">
+        <div className=" w-[65vw]">
+          <div className="p-2 m-2">
+            <h3 className="text-blue-500 font-semibold text-2xl">Campaign Name *</h3>
+            <input
+              value={campName}
+              onChange={(e) => setCampName(e.target.value)}
+              className="text-lg p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
+              type="text"
+              placeholder="genuity"
+            />
           </div>
-          <div className="section-right">
-            <div className="form-group">
-              <label>Start Date</label>
-              <input
-                type="date"
-                name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>End Date</label>
-              <input
-                type="date"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Category</label>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Category</option>
-                <option value="finance">Finance</option>
-                <option value="education">Education</option>
-                <option value="health">Health</option>
-              </select>
-            </div>
+          <div className="p-2 m-2">
+            <h3 className="text-blue-500 font-semibold text-2xl">Campaign Location *</h3>
+            <input
+              value={campLocation}
+              onChange={(e) => setCampLocation(e.target.value)}
+              className="text-lg p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
+              type="text"
+              placeholder="BH-2 room no 650"
+            />
+          </div>
+          <div className="p-2 m-2">
+            <h3 className="text-blue-500 font-semibold text-2xl">Campaign Code *</h3>
+            <input
+              value={campCode}
+              onChange={(e) => setCampCode(e.target.value)}
+              className="text-lg p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
+              type="text"
+              placeholder="069420"
+            />
+          </div>
+          <div className="p-2 m-2">
+            <h3 className="text-blue-500 font-semibold text-2xl">Campaign Goal *</h3>
+            <input
+              value={campGoal}
+              onChange={(e) => setCampGoal(e.target.value)}
+              className="text-lg p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
+              type="text"
+              placeholder="to win gsc"
+            />
           </div>
         </div>
-        <div className="form-actions">
-          <button type="submit" className="create-button">
-            Create
-          </button>
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={handleCancel}
+        <div className=" w-[25vw]">
+          <div className="p-2 m-2">
+            <h3 className="text-blue-500 font-semibold text-2xl">Campaign Start Date *</h3>
+            <input
+              value={campStart}
+              onChange={(e) => setCampStart(e.target.value)}
+              className="text-sm p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
+              type="date"
+            />
+          </div>
+          <div className="p-2 m-3 mt-4">
+            <h3 className="text-blue-500 font-semibold text-2xl">Campaign End Date *</h3>
+            <input
+              value={campEnd}
+              onChange={(e) => setCampEnd(e.target.value)}
+              className="text-sm p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
+              type="date"
+            />
+          </div>
+          <div className="p-2 m-3 mt-4">
+            <h3 className="text-blue-500 font-semibold text-2xl">Campaign Category *</h3>
+            <select
+            value={campCategory}
+            onChange={(e) => setCampCategory(e.target.value)}
+            className="text-sm  p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
           >
-            Cancel
-          </button>
+            <option value="" disabled>Select a category</option>
+            <option value="education">Education</option>
+            <option value="health">Health</option>
+            <option value="environment">Environment</option>
+            <option value="finance">Sports</option>
+          </select>
+          </div>
         </div>
       </form>
     </div>
   );
 };
 
-export default App;
+export default CampDetails;
