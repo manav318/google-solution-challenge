@@ -27,7 +27,7 @@ const options = () => {
             Login
         </Link>
         <Link
-            to="/sign-up"
+            to="/sign-up-redirect"
             className="w-24 py-1 text-center cursor-pointer hover:scale-105"
             onClick={() => setClickedLink("signup")}
         >
