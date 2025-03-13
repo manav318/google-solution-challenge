@@ -5,7 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx,html}",
   ],
   theme: {
-<<<<<<< Updated upstream
     extend: {
           fontFamily: {
             playfair: ["Playfair Display", "serif"],
@@ -17,14 +16,5 @@ export default {
           },
         },
       },
-=======
-
-      extend: {
-        fontFamily: {
-          playfair: ["Playfair Display", "serif"],
-        },
-      },
-  },
->>>>>>> Stashed changes
   plugins: [],
 };
