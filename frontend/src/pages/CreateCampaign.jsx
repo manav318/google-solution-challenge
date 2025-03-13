@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import LocationPicker from '../components/LocationPicker.jsx';
 
 const CampDetails = () => {
   const [campName, setCampName] = useState('');
@@ -11,6 +12,14 @@ const CampDetails = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+  };
+
+  const [showMap, setShowMap] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const handleLocationSelect = (latLng) => {
+    setSelectedLocation(latLng);
+    setCampLocation(`${latLng.lat()}, ${latLng.lng()}`);
   };
 
   return (
@@ -39,6 +48,13 @@ const CampDetails = () => {
               type="text"
               placeholder="BH-2 room no 650"
             />
+            <div className="flex items-center mt-2 cursor-pointer text-blue-500" onClick={() => setShowMap(true)}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="ml-2">Mark location on map</span>
+            </div>
           </div>
           <div className="p-2 m-2">
             <h3 className="text-blue-500 font-semibold text-2xl">Campaign Code *</h3>
@@ -83,19 +99,26 @@ const CampDetails = () => {
           <div className="p-2 m-3 mt-4">
             <h3 className="text-blue-500 font-semibold text-2xl">Campaign Category *</h3>
             <select
-            value={campCategory}
-            onChange={(e) => setCampCategory(e.target.value)}
-            className="text-sm  p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
-          >
-            <option value="" disabled>Select a category</option>
-            <option value="education">Education</option>
-            <option value="health">Health</option>
-            <option value="environment">Environment</option>
-            <option value="finance">Sports</option>
-          </select>
+              value={campCategory}
+              onChange={(e) => setCampCategory(e.target.value)}
+              className="text-sm p-2 w-full mt-1 rounded bg-blue-50 outline-none border-[2px] border-blue-500"
+            >
+              <option value="" disabled>Select a category</option>
+              <option value="education">Education</option>
+              <option value="health">Health</option>
+              <option value="environment">Environment</option>
+              <option value="finance">Sports</option>
+            </select>
           </div>
         </div>
       </form>
+
+      {showMap && (
+        <LocationPicker 
+          onLocationSelect={handleLocationSelect} 
+          onClose={() => setShowMap(false)}
+        />
+      )}
     </div>
   );
 };
