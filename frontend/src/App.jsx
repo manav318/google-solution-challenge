@@ -5,9 +5,10 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx"
 import Store from "./pages/Store.jsx"
 import Login from "./pages/Login.jsx"
-import SignUp from "./pages/SignUp.jsx"
+import SignUpRedirect from "./pages/SignUpRedirect.jsx"
 import CreateCampaign from "./pages/CreateCampaign.jsx"
 import CampaignDashboard from "./pages/CampaignDashboard.jsx"
+import SignUpUser from "./pages/SignUpUser.jsx"
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -23,9 +24,10 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/store" element={<Store />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-up-redirect" element={<SignUpRedirect />} />
           <Route path="/create-campaign" element={<CreateCampaign />} />
           <Route path="/dashboard-campaign" element={<CampaignDashboard />} />
+          <Route path="/sign-up-user" element={<SignUpUser />} />
         </Routes>
       </div>
     </>

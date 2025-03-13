@@ -15,7 +15,7 @@ const Count = () => {
                     // Delay fade-in effect for number
                     setTimeout(() => {
                         setShowNumber(true);
-                    }, 8000); // 8 second delay
+                    }, 2000); // 8 second delay
                 } else {
                     setIsVisible(false);
                     setShowNumber(false); // Reset when out of view
@@ -54,7 +54,7 @@ const Count = () => {
                 muted 
                 className="absolute h-[1540px] w-[500px] object-cover mx-auto transform -rotate-90"
             >
-                <source src="/videos/wave_vid.mp4" type="video/mp4" />
+                <source src="/videos/wave_vid1.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
 
