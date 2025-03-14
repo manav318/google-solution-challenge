@@ -1,14 +1,56 @@
 import React, { useState } from "react";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 
 const Login = () => {
   // State for form inputs
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  //CLIENT SIDE FIREBASE INTEGRATION
+    
+
+    const firebaseConfig = {
+      apiKey: import.meta.env.VITE_apiKey,
+      authDomain: import.meta.env.VITE_authDomain,
+      projectId: import.meta.env.VITE_projectID,
+      storageBucket: import.meta.env.VITE_storageBucket,
+      messagingSenderId: import.meta.env.VITE_messagingSenderId,
+      appId: import.meta.env.VITE_appID
+  };
+  
+  
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  
+  
+  async function signIn(email, password) {
+      try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const idToken = await userCredential.user.getIdToken(); 
+          
+          await fetch("http://localhost:7000/api/auth/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ idToken })
+          });
+          console.log("Sign-In successful!");
+      } catch (error) {
+          console.error("Error signing in:", error.message);
+      }
+  }
+
+
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    console.log("Username:", username);
+    console.log("Email:", email);
     console.log("Password:", password);
+    signIn(email,password)
   };
 
   return (
@@ -25,9 +67,9 @@ const Login = () => {
             <form onSubmit={handleSubmit} className="w-full flex flex-col space-y-4">
               <input
                 type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
               <input
