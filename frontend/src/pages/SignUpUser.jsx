@@ -1,19 +1,67 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 
 const Login = () => {
   // State for form inputs
+  
+  
+  //CLIENT SIDE FIREBASE INTEGRATION
+  const firebaseConfig = {
+    apiKey: "your-api-key",
+    authDomain: "your-auth-domain",
+    projectId: "your-project-id",
+    storageBucket: "your-storage-bucket",
+    messagingSenderId: "your-messaging-sender-id",
+    appId: "your-app-id"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+
+async function signIn(email, password) {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const idToken = await userCredential.user.getIdToken(); // Get ID token
+        
+        await fetch("http://localhost:5000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idToken })
+        });
+        console.log("Sign-In successful!");
+    } catch (error) {
+        console.error("Error signing in:", error.message);
+    }
+}
+
+
+
+
+
+
   const [username, setUsername] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async  (e) => {
     e.preventDefault();
     console.log("Username:", username);
     console.log("Email/Phone:", emailOrPhone);
     console.log("Password:", password);
     console.log("Confirm Password:", confirmPassword);
+    await fetch("http://localhost:5000/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({email: emailOrPhone,
+        password: password
+      })
+  });
   };
 
   return (
