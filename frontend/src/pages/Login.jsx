@@ -150,7 +150,11 @@ const Login = () => {
               <Link 
               to="/sign-up-redirect"
               className="text-blue-500 cursor-pointer hover:underline">
+              <Link 
+              to="/sign-up-redirect"
+              className="text-blue-500 cursor-pointer hover:underline">
                 Sign-up
+              </Link>
               </Link>
             </p>
 
