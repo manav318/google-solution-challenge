@@ -5,13 +5,16 @@ const options = () => {
     const [clickedLink, setClickedLink] = useState(""); 
     return ( 
         <div className='absolute text-white font-semibold flex items-center justify-between gap-1 text-xl right-1 bottom-1 font-playfair'>
-        <Link
-            to="/"
-            className="w-24 py-1 text-center cursor-pointer hover:scale-105"
-            onClick={() => setClickedLink("home")}
-        >
-            Home
-        </Link>
+<Link
+  to="/"
+  className="w-24 py-1 text-center cursor-pointer hover:scale-105"
+  onClick={() => {
+    setClickedLink("home");
+    window.scrollTo(0, 0); // Reset scroll position to top
+  }}
+>
+  Home
+</Link>
         <Link
             to="/store"
             className="w-24 py-1 text-center cursor-pointer hover:scale-105"
