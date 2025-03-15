@@ -1,0 +1,119 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+const SignUpSeller = () => {
+  // State for form inputs
+  const [sellerName, setSellerName] = useState("");
+  const [email, setEmail] = useState("");
+  const [logoFile, setLogoFile] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Seller Name:", sellerName);
+    console.log("Email:", email);
+    console.log("Logo File:", logoFile);
+  };
+
+  const handleLogoChange = (e) => {
+    setLogoFile(e.target.files[0]);
+  };
+
+  return (
+    <div className="mt-[6vh] h-[94vh] w-full flex justify-center items-center gap-8">
+      {/* Sign Up Form Container */}
+      <div className="relative w-[35vw] h-[80vh]">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-500 to-white rounded-xl p-[1px]">
+          <div className="h-full w-full bg-gradient-to-b from-cyan-100 to-white rounded-xl flex flex-col justify-center items-center p-8">
+            {/* Sign Up Heading */}
+            <h1 className="text-3xl font-bold mb-2">SELLER SIGN UP</h1>
+            <p className="text-gray-600 mb-4">Provide your details to get started!</p>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="w-full flex flex-col space-y-4">
+              <input
+                type="text"
+                placeholder="Organization/Seller Name"
+                value={sellerName}
+                onChange={(e) => setSellerName(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md"
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md"
+                required
+              />
+              <div className="w-full flex flex-col space-y-2">
+                <label className="text-gray-600">Upload Logo</label>
+                <input
+                  type="file"
+                  onChange={handleLogoChange}
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                  required
+                />
+              </div>
+              <div className="w-full flex flex-col space-y-2">
+                <label className="text-gray-600">Upload Documents</label>
+                <div className="w-full p-2 border border-gray-300 rounded-md flex items-center justify-between">
+                  <span className="text-gray-500">
+                    {uploadProgress === 0 ? "0% Complete" : `${uploadProgress}% Uploaded`}
+                  </span>
+                  <Link
+                    to="/sign-up-seller-upload-documents" // Replace with your desired route
+                    className="text-blue-500 hover:underline cursor-pointer"
+                  >
+                    Upload Documents
+                  </Link>
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 mt-[5vh]"
+              >
+                Sign Up
+              </button>
+            </form>
+
+            {/* Login Text */}
+            <p className="mt-16 text-gray-600">
+              Already have an account?{" "}
+              <Link 
+              to="/login"
+              className="text-blue-500 cursor-pointer hover:underline">
+                Login
+              </Link>
+            </p>
+
+            {/* Footer Links */}
+            <div className="mt-3 text-center space-x-4">
+              <a href="#" className="text-gray-500 text-sm hover:underline">
+                Customer Care
+              </a>
+              <a href="#" className="text-gray-500 text-sm hover:underline">
+                Support
+              </a>
+              <a href="#" className="text-gray-500 text-sm hover:underline">
+                Terms and Conditions
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Image Container */}
+      <div className="relative w-[35vw] h-[80vh] rounded-xl">
+        <img
+          src="pics/collageFrame1.png"
+          alt="Decorative"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default SignUpSeller;
