@@ -11,7 +11,6 @@ const Login = () => {
 
   //CLIENT SIDE FIREBASE INTEGRATION
     
-
     const firebaseConfig = {
       apiKey: import.meta.env.VITE_apiKey,
       authDomain: import.meta.env.VITE_authDomain,
@@ -41,10 +40,6 @@ const Login = () => {
           console.error("Error signing in:", error.message);
       }
   }
-
-
-
-
 
 
   const handleSubmit = (e) => {
