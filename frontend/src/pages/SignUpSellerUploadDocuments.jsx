@@ -1,0 +1,338 @@
+import React, { useState, useEffect } from "react";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+
+const UploadDocuments = () => {
+  // State for form inputs
+  const [aadharNumber, setAadharNumber] = useState("");
+  const [panNumber, setPanNumber] = useState("");
+  const [businessContactNumber, setBusinessContactNumber] = useState("");
+  const [upiId, setUpiId] = useState("");
+  const [bankAccountNumber, setBankAccountNumber] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState({ lat: 28.6139, lng: 77.209 }); // Default to Delhi
+  const [otp, setOtp] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0); // Dynamic progress
+  const [showUploadSection, setShowUploadSection] = useState(false); // Toggle upload section
+  const [uploadedFiles, setUploadedFiles] = useState([]); // Store uploaded files
+
+  // Google Maps API
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDa26Qm6xc2NN49G4S0f6CFf5V2VIum7EI", // Replace with your Google Maps API key
+  });
+
+  // Calculate progress dynamically
+  useEffect(() => {
+    const fields = [
+      aadharNumber,
+      panNumber,
+      businessContactNumber,
+      upiId,
+      bankAccountNumber,
+      selectedLocation,
+      otp,
+    ];
+    const filledFields = fields.filter((field) => field !== "" && field !== null).length;
+    const totalFields = fields.length;
+    const progress = Math.round((filledFields / totalFields) * 100);
+    setUploadProgress(progress);
+  }, [aadharNumber, panNumber, businessContactNumber, upiId, bankAccountNumber, selectedLocation, otp]);
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Aadhar Number:", aadharNumber);
+    console.log("PAN Number:", panNumber);
+    console.log("Business Contact Number:", businessContactNumber);
+    console.log("UPI ID:", upiId);
+    console.log("Bank Account Number:", bankAccountNumber);
+    console.log("Selected Location:", selectedLocation);
+    console.log("OTP:", otp);
+    console.log("Uploaded Files:", uploadedFiles);
+    alert("Submitted for Review!");
+  };
+
+  // Handle OTP verification
+  const handleVerifyOtp = () => {
+    console.log("OTP Verified:", otp);
+    alert("OTP Verified Successfully!");
+  };
+
+  // Handle file upload
+  const handleFileUpload = (e) => {
+    const files = Array.from(e.target.files);
+    setUploadedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  // Handle file removal
+  const handleRemoveFile = (index) => {
+    setUploadedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
+  // Clear all form entries
+  const handleClearForm = () => {
+    setAadharNumber("");
+    setPanNumber("");
+    setBusinessContactNumber("");
+    setUpiId("");
+    setBankAccountNumber("");
+    setSelectedLocation({ lat: 28.6139, lng: 77.209 });
+    setOtp("");
+    setUploadedFiles([]);
+  };
+
+  // Save progress and exit
+  const handleSaveProgress = () => {
+    const progressData = {
+      aadharNumber,
+      panNumber,
+      businessContactNumber,
+      upiId,
+      bankAccountNumber,
+      selectedLocation,
+      otp,
+      uploadedFiles,
+    };
+    localStorage.setItem("savedProgress", JSON.stringify(progressData));
+    alert("Progress saved successfully!");
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-8 mt-[6vh] pt-0 overflow-hidden">
+      {/* Page Title and Save Progress Button */}
+      <h1 className="text-center text-3xl font-bold mb-4">UPLOAD DOCUMENTS</h1>
+
+      {/* Progress Bar and Percentage */}
+      <div className="flex items-center mb-4">
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div
+            className="bg-blue-600 h-2.5 rounded-full"
+            style={{ width: `${uploadProgress}%` }}
+          ></div>
+        </div>
+        <span className="ml-4 text-sm text-blue-700">{uploadProgress}%</span>
+      </div>
+
+      {/* Main Content Container */}
+      <div className="relative w-full overflow-hidden">
+        {/* Form Section */}
+        <div
+          className={`transition-transform duration-500 ease-in-out ${
+            showUploadSection ? "-translate-x-full" : "translate-x-0"
+          }`}
+        >
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Left Section - Form */}
+            <div className="flex-1 bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold mb-4">Document Details</h2>
+              <p className="text-left text-red-500 mb-6">* marked are compulsory</p>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700">*Aadhar Number</label>
+                  <input
+                    type="text"
+                    value={aadharNumber}
+                    onChange={(e) => setAadharNumber(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">*PAN Number</label>
+                  <input
+                    type="text"
+                    value={panNumber}
+                    onChange={(e) => setPanNumber(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">*Business Contact Number</label>
+                  <input
+                    type="text"
+                    value={businessContactNumber}
+                    onChange={(e) => setBusinessContactNumber(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">*UPI ID</label>
+                  <input
+                    type="text"
+                    value={upiId}
+                    onChange={(e) => setUpiId(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">*Bank Account Number</label>
+                  <input
+                    type="text"
+                    value={bankAccountNumber}
+                    onChange={(e) => setBankAccountNumber(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    required
+                  />
+                </div>
+              </form>
+            </div>
+
+            {/* Right Section - Google Maps and OTP Verification */}
+            <div className="flex-1 bg-white p-6 rounded-lg shadow-md">
+              {/* Google Maps Section */}
+              <h2 className="text-xl font-semibold mb-4">*Choose a Pickup Point for Deliveries</h2>
+              {isLoaded ? (
+                <GoogleMap
+                  mapContainerStyle={{ width: "100%", height: "300px" }}
+                  zoom={12}
+                  center={selectedLocation}
+                  onClick={(e) =>
+                    setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+                  }
+                >
+                  <Marker
+                    position={selectedLocation}
+                    draggable={true}
+                    onDragEnd={(e) =>
+                      setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+                    }
+                  />
+                </GoogleMap>
+              ) : (
+                <p>Loading Map...</p>
+              )}
+
+              {/* OTP Verification Section */}
+              <div className="mt-6">
+                <hr className="my-4" />
+                <h2 className="text-xl font-semibold mb-4">Aadhar Verification</h2>
+                <div className="flex items-center space-x-4">
+                  <input
+                    type="text"
+                    placeholder="Enter 6-digit OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    maxLength={6}
+                  />
+                  <button
+                    onClick={handleVerifyOtp}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  >
+                    Verify OTP
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Clear and Next Buttons */}
+          <div className="flex justify-end mt-3 space-x-4">
+            <button
+              onClick={handleSaveProgress}
+              className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600"
+            >
+              Save Progress and Exit
+            </button>
+            <button
+              onClick={handleClearForm}
+              className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600"
+            >
+              Clear
+            </button>
+            <button
+              onClick={() => setShowUploadSection(true)}
+              className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+            >
+              Next →
+            </button>
+          </div>
+        </div>
+
+        {/* Upload Section */}
+        <div
+          className={`absolute top-0 left-full w-full transition-transform duration-500 ease-in-out ${
+            showUploadSection ? "-translate-x-full" : "translate-x-0"
+          }`}
+        >
+          <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Left Section - List of Documents */}
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold mb-4">Required Documents</h2>
+                <ul className="list-disc list-inside">
+                  <li>Aadhar Card</li>
+                  <li>PAN Card</li>
+                  <li>Business Proof</li>
+                  <li>Bank Statement</li>
+                  <li>Address Proof</li>
+                </ul>
+              </div>
+
+              {/* Right Section - Upload Multiple PDFs */}
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold mb-4">Upload Documents</h2>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                  <label htmlFor="file-upload" className="cursor-pointer">
+                    <img
+                      src="https://www.svgrepo.com/show/485545/upload-cloud.svg"
+                      alt="Upload"
+                      className="w-16 h-16 mx-auto mb-4"
+                    />
+                    <p className="text-gray-600">Drag & drop files or click to upload</p>
+                    <input
+                      id="file-upload"
+                      type="file"
+                      multiple
+                      accept=".pdf"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+                <div className="mt-4">
+                  {uploadedFiles.map((file, index) => (
+                    <div key={index} className="flex items-center justify-between text-gray-700">
+                      <span>{file.name}</span>
+                      <button
+                        onClick={() => handleRemoveFile(index)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Previous Button */}
+            <div className="flex justify-end mt-8">
+              <button
+                onClick={() => setShowUploadSection(false)}
+                className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+              >
+                ← Previous
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Submit for Review Button */}
+      {uploadProgress === 100 && (
+        <div className="flex justify-end mt-8">
+          <button
+            onClick={handleSubmit}
+            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600"
+          >
+            Submit for Review
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default UploadDocuments;
