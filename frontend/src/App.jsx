@@ -14,12 +14,13 @@ import TermsAndCondition from "./pages/TermsAndCondition.jsx"
 import Support from "./pages/Support.jsx"
 import CustomerCare from "./pages/CustomerCare.jsx"
 import SignUpSellerUploadDocuments from "./pages/SignUpSellerUploadDocuments.jsx"
+import PartnerWithUs from "./pages/PartnerWithUs.jsx"
 // import "@fontsource/aclonica";
 const App = () => {
   
   return (
     <>
-      <nav className="fixed top-0 left-0 flex items-center justify-between bg-gray-700 bg-opacity-80 font-semibold w-full z-50 drop-shadow-2xl">
+      <nav className="fixed h-[6vh] top-0 left-0 flex items-center justify-between bg-gray-700 bg-opacity-80 font-semibold w-full z-50 drop-shadow-2xl">
         <Logo />
         <NavOptions />
       </nav>
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/customer-care" element={<CustomerCare />} />
           <Route path="/terms-and-conditions" element={<TermsAndCondition />} />
           <Route path="/sign-up-seller-upload-documents" element={<SignUpSellerUploadDocuments />} />
+          <Route path="/partner-with-us" element={<PartnerWithUs />} />
         </Routes>
       </div>
     </>
