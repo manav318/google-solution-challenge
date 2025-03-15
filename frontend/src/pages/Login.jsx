@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -118,9 +119,11 @@ const Login = () => {
             {/* Sign-up Text */}
             <p className="mt-8 text-gray-600">
               Don't have an account?{" "}
-              <span className="text-blue-500 cursor-pointer hover:underline">
+              <Link 
+              to="/sign-up-redirect"
+              className="text-blue-500 cursor-pointer hover:underline">
                 Sign-up
-              </span>
+              </Link>
             </p>
 
             {/* Footer Links */}

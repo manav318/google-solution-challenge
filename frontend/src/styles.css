@@ -7,10 +7,21 @@ body{
   color: black;
 }
 
-.element::-webkit-scrollbar {
-  width: 0px;
+/* Hide the scrollbar track */
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar width */
+  background: transparent; /* Make scrollbar track transparent */
 }
 
+/* Hide the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: transparent; /* Make scrollbar thumb transparent */
+}
+
+/* Optional: Hide scrollbar on hover */
+:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2); /* Show a faint thumb on hover */
+}
 
 
 html, body {
