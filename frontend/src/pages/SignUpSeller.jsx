@@ -10,6 +10,7 @@ const SignUpSeller = () => {
   const [sellerName, setSellerName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); // State for password
+  const [password, setPassword] = useState(""); // State for password
   const [logoFile, setLogoFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
   const navigate=useNavigate()
@@ -63,6 +64,7 @@ const SignUpSeller = () => {
     e.preventDefault();
     console.log("Seller Name:", sellerName);
     console.log("Email:", email);
+    console.log("Password:", password); // Log the password
     console.log("Password:", password); // Log the password
     console.log("Logo File:", logoFile);
   };
@@ -142,6 +144,15 @@ const SignUpSeller = () => {
                 className="w-full p-2 border border-gray-300 rounded-md"
                 required
               />
+              {/* Password Input */}
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md"
+                required
+              />
               <div className="w-full flex flex-col space-y-2">
                 <label className="text-gray-600">Upload Logo</label>
                 <input
@@ -166,6 +177,10 @@ const SignUpSeller = () => {
                     {uploadProgress === 0 ? "0% Complete" : `${uploadProgress}% Uploaded`}
                   </span>
 
+                  <span className="text-gray-500">
+                    {uploadProgress === 0 ? "0% Complete" : `${uploadProgress}% Uploaded`}
+                  </span>
+
                 </div>
               </div>
               <button
@@ -177,6 +192,7 @@ const SignUpSeller = () => {
             </form>
 
             {/* Login Text */}
+            <p className="mt-8 text-gray-600">
             <p className="mt-8 text-gray-600">
               Already have an account?{" "}
               <Link 
