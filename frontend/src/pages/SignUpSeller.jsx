@@ -10,7 +10,6 @@ const SignUpSeller = () => {
   const [sellerName, setSellerName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); // State for password
-  const [password, setPassword] = useState(""); // State for password
   const [logoFile, setLogoFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
   const navigate=useNavigate()
