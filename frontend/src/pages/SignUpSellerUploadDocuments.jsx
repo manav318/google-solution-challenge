@@ -14,6 +14,14 @@ const UploadDocuments = () => {
   const [showUploadSection, setShowUploadSection] = useState(false); // Toggle upload section
   const [uploadedFiles, setUploadedFiles] = useState([]); // Store uploaded files
 
+  // Required documents list (only 4 are necessary)
+  const requiredDocuments = [
+    "Birth Certificate of Owner (1)",
+    "GoI Rural Area Certificate (1)",
+    "Voter ID Card (1)",
+    "Permanent Residential Certificate (1)",
+  ];
+
   // Google Maps API
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDa26Qm6xc2NN49G4S0f6CFf5V2VIum7EI", // Replace with your Google Maps API key
@@ -32,9 +40,19 @@ const UploadDocuments = () => {
     ];
     const filledFields = fields.filter((field) => field !== "" && field !== null).length;
     const totalFields = fields.length;
-    const progress = Math.round((filledFields / totalFields) * 100);
-    setUploadProgress(progress);
-  }, [aadharNumber, panNumber, businessContactNumber, upiId, bankAccountNumber, selectedLocation, otp]);
+
+    // Calculate progress for form fields
+    const formProgress = Math.round((filledFields / totalFields) * 50); // Form contributes 50% to progress
+
+    // Calculate progress for uploaded files (only 4 are necessary)
+    const uploadedFilesCount = uploadedFiles.length;
+    const totalRequiredFiles = requiredDocuments.length; // 4 documents
+    const uploadProgress = Math.round((uploadedFilesCount / totalRequiredFiles) * 50); // Uploads contribute 50% to progress
+
+    // Total progress
+    const totalProgress = formProgress + uploadProgress;
+    setUploadProgress(totalProgress > 100 ? 100 : totalProgress); // Cap progress at 100%
+  }, [aadharNumber, panNumber, businessContactNumber, upiId, bankAccountNumber, selectedLocation, otp, uploadedFiles]);
 
   // Handle form submission
   const handleSubmit = (e) => {
@@ -284,68 +302,77 @@ const UploadDocuments = () => {
               <div className="flex-1">
                 <h2 className="text-xl font-semibold mb-4">Required Documents</h2>
                 <ul className="list-disc list-inside">
-                  <li>Aadhar Card</li>
-                  <li>PAN Card</li>
-                  <li>Business Proof</li>
-                  <li>Bank Statement</li>
-                  <li>Address Proof</li>
+                  {requiredDocuments.map((doc, index) => (
+                    <li key={index} className="text-lg mb-2">{doc}</li>
+                  ))}
                 </ul>
+                {/* Previous Button */}
+                <div className="mt-8">
+                  <button
+                    onClick={() => setShowUploadSection(false)}
+                    className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+                    type="button"
+                  >
+                    ← Previous
+                  </button>
+                </div>
               </div>
-{/* Right Section - Upload Multiple Files */}
-<div className="flex-1">
-  <h2 className="text-xl font-semibold mb-4 text-center">Upload</h2>
-  {/* Drag & Drop Upload Box */}
-  <div
-    className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center"
-    onDragOver={(e) => e.preventDefault()}
-    onDrop={handleDrop}
-  >
-    <label htmlFor="file-upload" className="cursor-pointer">
-      <img
-        src="/pics/cloud.png"
-        alt="Upload"
-        className="w-16 h-16 mx-auto mb-4"
-      />
-      <p className="text-gray-600">
-        Drag & drop files or <span className="text-blue-600 underline cursor-pointer">Browse</span>
-      </p>
-      <p className="text-gray-500 text-sm mt-2">
-        Supported formats: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT
-      </p>
-      <input
-        id="file-upload"
-        type="file"
-        multiple
-        accept=".jpeg,.png,.gif,.mp4,.pdf,.psd,.ai,.docx,.ppt"
-        onChange={handleFileUpload}
-        className="hidden"
-      />
-    </label>
-  </div>
-  {/* Uploaded Files List with Progress Bar */}
-  <div className="mt-4">
-    {uploadedFiles.map((file, index) => (
-      <div key={index} className="bg-gray-100 p-2 rounded-lg mb-2">
-        <div className="flex items-center justify-between">
-          <span className="text-gray-700 text-sm">{file.name || file.file.name}</span>
-          <button
-            onClick={() => handleRemoveFile(index)}
-            className="text-red-500 hover:text-red-700 text-sm"
-            type="button"
-          >
-            ✖
-          </button>
-        </div>
-        {/* Progress Bar */}
-        <div className="w-full bg-gray-300 h-1 mt-2 rounded-full">
-          <div 
-            className="bg-blue-500 h-1 rounded-full" 
-            style={{ width: `${file.progress || 100}%` }}
-          ></div>
-        </div>
-      </div>
-    ))}
-  </div>
+
+              {/* Right Section - Upload Multiple Files */}
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold mb-4 text-center">Upload</h2>
+                {/* Drag & Drop Upload Box */}
+                <div
+                  className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={handleDrop}
+                >
+                  <label htmlFor="file-upload" className="cursor-pointer">
+                    <img
+                      src="/pics/cloud.png"
+                      alt="Upload"
+                      className="w-16 h-16 mx-auto mb-4"
+                    />
+                    <p className="text-gray-600">
+                      Drag & drop files or <span className="text-blue-600 underline cursor-pointer">Browse</span>
+                    </p>
+                    <p className="text-gray-500 text-sm mt-2">
+                      Supported formats: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT
+                    </p>
+                    <input
+                      id="file-upload"
+                      type="file"
+                      multiple
+                      accept=".jpeg,.png,.gif,.mp4,.pdf,.psd,.ai,.docx,.ppt"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+                {/* Uploaded Files List with Progress Bar */}
+                <div className="mt-4">
+                  {uploadedFiles.map((file, index) => (
+                    <div key={index} className="bg-gray-100 p-2 rounded-lg mb-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-700 text-sm">{file.name || file.file.name}</span>
+                        <button
+                          onClick={() => handleRemoveFile(index)}
+                          className="text-red-500 hover:text-red-700 text-sm"
+                          type="button"
+                        >
+                          ✖
+                        </button>
+                      </div>
+                      {/* Progress Bar */}
+                      <div className="w-full bg-gray-300 h-1 mt-2 rounded-full">
+                        <div 
+                          className="bg-blue-500 h-1 rounded-full" 
+                          style={{ width: `${file.progress || 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
                 {/* Upload Button */}
                 <button 
@@ -355,17 +382,6 @@ const UploadDocuments = () => {
                   UPLOAD FILES
                 </button>
               </div>
-            </div>
-
-            {/* Previous Button */}
-            <div className="flex justify-end mt-8">
-              <button
-                onClick={() => setShowUploadSection(false)}
-                className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
-                type="button"
-              >
-                ← Previous
-              </button>
             </div>
           </div>
         </div>
