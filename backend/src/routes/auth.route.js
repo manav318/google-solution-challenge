@@ -1,9 +1,15 @@
 const express=require("express")
-const {signup}=require("../controllers/auth.controller")
+const {signup,login, logout, protected, verifySession}=require("../controllers/auth.controller")
 
 const router=express.Router()
 
-router.post('/api/auth/signup',signup)
+router.post('/signup',signup)
+router.post('/login',login)
+router.post('/logout',logout)
+router.get('/protected',verifySession,protected)
+
+
+
 
 module.exports=router
 
