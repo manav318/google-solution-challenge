@@ -15,7 +15,7 @@ const Count = () => {
                     // Delay fade-in effect for number
                     setTimeout(() => {
                         setShowNumber(true);
-                    }, 2000); // 8 second delay
+                    }, 2000); // 2 second delay
                 } else {
                     setIsVisible(false);
                     setShowNumber(false); // Reset when out of view

@@ -9,6 +9,8 @@ import SignUpRedirect from "./pages/SignUpRedirect.jsx"
 import CreateCampaign from "./pages/CreateCampaign.jsx"
 import CampaignDashboard from "./pages/CampaignDashboard.jsx"
 import SignUpUser from "./pages/SignUpUser.jsx"
+import SignUpSeller from "./pages/SignUpSeller.jsx"
+import SignUpSellerUploadDocuments from "./pages/SignUpSellerUploadDocuments.jsx"
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -28,6 +30,8 @@ const App = () => {
           <Route path="/create-campaign" element={<CreateCampaign />} />
           <Route path="/dashboard-campaign" element={<CampaignDashboard />} />
           <Route path="/sign-up-user" element={<SignUpUser />} />
+          <Route path="/sign-up-seller" element={<SignUpSeller />} />
+          <Route path="/sign-up-seller-upload-documents" element={<SignUpSellerUploadDocuments />} />
         </Routes>
       </div>
     </>
