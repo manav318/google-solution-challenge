@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+
 const Login = () => {
   // State for form inputs
   const [username, setUsername] = useState("");
@@ -8,12 +9,21 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async  (e) => {
     e.preventDefault();
     console.log("Username:", username);
     console.log("Email/Phone:", emailOrPhone);
     console.log("Password:", password);
     console.log("Confirm Password:", confirmPassword);
+    const res=await fetch("http://localhost:7000/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({email: emailOrPhone,
+        password: password
+      })
+  });
+    const json=await res.json();
+    console.log(json)
   };
 
   return (
