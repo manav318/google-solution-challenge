@@ -140,7 +140,7 @@ const Login = () => {
       {/* Image Container */}
       <div className="relative w-[35vw] h-[80vh] rounded-xl">
         <img
-          src="pics/login-image.jpg" 
+          src="pics/collageFrame1.png" 
           alt="Decorative"
           className="w-full h-full object-cover"
         />
