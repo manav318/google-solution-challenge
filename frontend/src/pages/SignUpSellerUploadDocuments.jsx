@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const UploadDocuments = () => {
   // State for form inputs
@@ -13,7 +15,10 @@ const UploadDocuments = () => {
   const [uploadProgress, setUploadProgress] = useState(0); // Dynamic progress
   const [showUploadSection, setShowUploadSection] = useState(false); // Toggle upload section
   const [uploadedFiles, setUploadedFiles] = useState([]); // Store uploaded files
+  const [sellerId, setSellerId] = useState(null);
+  const navigate = useNavigate();
 
+  
   // Google Maps API
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDa26Qm6xc2NN49G4S0f6CFf5V2VIum7EI", // Replace with your Google Maps API key
@@ -36,8 +41,30 @@ const UploadDocuments = () => {
     setUploadProgress(progress);
   }, [aadharNumber, panNumber, businessContactNumber, upiId, bankAccountNumber, selectedLocation, otp]);
 
+
+  useEffect(() => {
+    const storedSellerId = sessionStorage.getItem("sellerId");
+    if (!storedSellerId) {
+        alert("Seller ID not found! Please complete the first form.");
+        window.location = "/"; // Redirect to the first form if sellerId is missing
+    } else {
+        setSellerId(storedSellerId); // Set sellerId from sessionStorage
+    }
+}, []);
+
+const handleDrop = (e) => {
+  e.preventDefault();
+  const files = Array.from(e.dataTransfer.files);
+  const newFiles = files.map(file => ({
+    name: file.name,
+    progress: 100, // Set initial progress to 100% for simplicity
+    file: file
+  }));
+  
+  setUploadedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+};
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Aadhar Number:", aadharNumber);
     console.log("PAN Number:", panNumber);
@@ -47,6 +74,31 @@ const UploadDocuments = () => {
     console.log("Selected Location:", selectedLocation);
     console.log("OTP:", otp);
     console.log("Uploaded Files:", uploadedFiles);
+
+    const base64Files = [];
+        for (const file of uploadedFiles) {
+            const promise = new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(",")[1]);
+                reader.onerror = (err) => reject(err);
+                reader.readAsDataURL(file);
+            });
+            base64Files.push(await promise);
+        }
+
+        try {
+            const response = await axios.post(
+                `http://localhost:7000/api/upload/sellers/${sellerId}/details`,
+                { details: formData, documents: base64Files }
+            );
+            alert(response.data.message);
+        } catch (error) {
+            console.error("Error saving details:", error);
+            alert("Failed to save details");
+        }
+
+
+
     alert("Submitted for Review!");
   };
 
@@ -59,12 +111,18 @@ const UploadDocuments = () => {
   // Handle file upload
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
-    setUploadedFiles((prevFiles) => [...prevFiles, ...files]);
-  };
+    const base64Files = [];
 
-  // Handle file removal
-  const handleRemoveFile = (index) => {
-    setUploadedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            base64Files.push(reader.result); // Includes the prefix automatically
+        };
+        reader.readAsDataURL(file); // Ensures the prefix is added
+    });
+
+    setUploadedFiles(base64Files);
+    console.log(uploadedFiles)
   };
 
   // Clear all form entries
@@ -286,6 +344,7 @@ const UploadDocuments = () => {
                       type="file"
                       multiple
                       accept=".pdf"
+                      name="uploadedFiles"
                       onChange={handleFileUpload}
                       className="hidden"
                     />
