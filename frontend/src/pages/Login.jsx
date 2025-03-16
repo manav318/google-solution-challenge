@@ -33,7 +33,7 @@ const Login = () => {
           await fetch("http://localhost:7000/api/auth/login", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ idToken })
+              body: JSON.stringify({ idToken: idToken})
           });
           console.log("Sign-In successful!");
       } catch (error) {
