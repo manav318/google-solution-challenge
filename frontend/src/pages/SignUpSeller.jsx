@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const SignUpSeller = () => {
   // State for form inputs
@@ -8,7 +10,7 @@ const SignUpSeller = () => {
   const [password, setPassword] = useState(""); // State for password
   const [logoFile, setLogoFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
-
+  const navigate=useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Seller Name:", sellerName);
@@ -20,6 +22,33 @@ const SignUpSeller = () => {
   const handleLogoChange = (e) => {
     setLogoFile(e.target.files[0]);
   };
+
+  const handleNext=(e)=>{
+    e.preventDefault();
+
+        
+    const reader = new FileReader();
+        reader.readAsDataURL(logoFile);
+        reader.onloadend = async () => {
+            const base64Logo = reader.result.split(",")[1];
+            try {
+                const response = await axios.post("http://localhost:7000/api/upload/sellers", {
+                    sellerName:sellerName,
+                    email:email,
+                    password: password,
+                    logoFile: base64Logo,
+                });
+                const { sellerId } = response.data;
+                sessionStorage.setItem("sellerId", sellerId)
+                console.log("Seller created successfully!");
+                navigate('/sign-up-seller-upload-documents');
+            } catch (error) {
+                console.error("Error creating seller:", error);
+                console.log("Failed to create seller");
+            }
+  }
+  
+}
 
   return (
     <div className="mt-[6vh] h-[94vh] w-full flex justify-center items-center gap-8">
@@ -62,6 +91,7 @@ const SignUpSeller = () => {
                 <label className="text-gray-600">Upload Logo</label>
                 <input
                   type="file"
+                  name="logoFile"
                   onChange={handleLogoChange}
                   className="w-full p-2 border border-gray-300 rounded-md"
                   required
@@ -71,7 +101,7 @@ const SignUpSeller = () => {
                 <label className="text-gray-600">Upload Documents</label>
                 <div className="w-full p-2 border border-gray-300 rounded-md flex items-center justify-between">
                 <Link
-                    to="/sign-up-seller-upload-documents" // Replace with your desired route
+                    onClick={handleNext} // Replace with your desired route
                     className="text-blue-500 hover:underline cursor-pointer"
                   >
                     Upload Documents
