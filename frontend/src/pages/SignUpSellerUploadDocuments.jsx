@@ -16,6 +16,7 @@ const UploadDocuments = () => {
   const [showUploadSection, setShowUploadSection] = useState(false); // Toggle upload section
   const [uploadedFiles, setUploadedFiles] = useState([]); // Store uploaded files
   const [sellerId, setSellerId] = useState(null);
+  const [base64Files,setBase64Files]=useState([])
   const navigate = useNavigate();
 
   
@@ -75,23 +76,40 @@ const handleDrop = (e) => {
     console.log("OTP:", otp);
     console.log("Uploaded Files:", uploadedFiles);
 
-    const base64Files = [];
-        for (const file of uploadedFiles) {
-            const promise = new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result.split(",")[1]);
-                reader.onerror = (err) => reject(err);
-                reader.readAsDataURL(file);
-            });
-            base64Files.push(await promise);
-        }
-
+    
+        
         try {
+          const newFiles=[]
+          for (const file of uploadedFiles) {
+              
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onloadend = () => {
+                    //console.log(`File: ${file.name}, Base64: ${reader.result}`);
+                    newFiles.push(reader.result)
+                  }
+                  
+              
+              
+          }
+          setBase64Files(newFiles)
+          if(base64Files)
+            console.log("base64",base64Files)
+          else 
+            console.log("no base64")
             const response = await axios.post(
                 `http://localhost:7000/api/upload/sellers/${sellerId}/details`,
-                { details: formData, documents: base64Files }
+                { details: {
+                  aadharNumber:aadharNumber,
+                  panNumber:panNumber,
+                  businessContactNumber:businessContactNumber,
+                  upiId:upiId,
+                  bankAccountNumber:bankAccountNumber,
+                  selectedLocation:selectedLocation
+                }, 
+                documents:base64Files}
             );
-            alert(response.data.message);
+            console.log(response.data.message)
         } catch (error) {
             console.error("Error saving details:", error);
             alert("Failed to save details");
@@ -107,23 +125,32 @@ const handleDrop = (e) => {
     console.log("OTP Verified:", otp);
     alert("OTP Verified Successfully!");
   };
-
+  const handleRemoveFile = (index) => {
+    setUploadedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
   // Handle file upload
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
-    const base64Files = [];
+    
+    console.log(files)
+    setUploadedFiles((prevFiles)=>[...prevFiles,...files])
+    
 
-    files.forEach((file) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            base64Files.push(reader.result); // Includes the prefix automatically
-        };
-        reader.readAsDataURL(file); // Ensures the prefix is added
-    });
-
-    setUploadedFiles(base64Files);
-    console.log(uploadedFiles)
+    
+   
+    console.log("uploaded files:",uploadedFiles)
+    e.target.value=[]
   };
+
+
+  
+
+  // Handle file upload
+  
+
+  // Handle file removal
+  
+
 
   // Clear all form entries
   const handleClearForm = () => {
