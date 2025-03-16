@@ -20,12 +20,13 @@ const submitSellerData = async (req, res) => {
         });
         const sellerId = userRecord.uid; // Use the UID as the seller ID
         
-        const formattedLogoFile = logoFile.startsWith("data:image/")
+        const formattedLogoFile = logoFile.startsWith("data:")
             ? logoFile // If already prefixed, use as-is
-            : `data:image/png;base64,${logoFile}`;
+            : `data:application/pdf;base64,${logoFile}`;
         
         const result = await cloudinary.uploader.upload(formattedLogoFile,{
-            folder: `sellers/${sellerId}`, // Organize files by sellerId
+            folder: `sellers/${sellerId}`,
+            resource_type:'auto' // Organize files by sellerId
         });
         const logoURL = result.secure_url; // Get the secure Cloudinary URL
 
@@ -48,6 +49,7 @@ const submitSellerData = async (req, res) => {
 const additionalSellerData = async (req, res) => {
     try {
         const { sellerId } = req.params;
+        console.log(req.body)
         const { details, documents } = req.body;
         cloudinary.config({
             cloud_name: process.env.cloudName, // Replace with your Cloudinary Cloud name
@@ -56,13 +58,15 @@ const additionalSellerData = async (req, res) => {
         });
 
         const uploadedDocs = [];
+        console.log("documents: ",documents)
         for (const base64File of documents) {
             // Upload file to Cloudinary
-            const formattedFile = base64File.startsWith("data:image/")
+            const formattedFile = base64File.startsWith("data:")
                 ? base64File // If already prefixed, use as-is
-                : `data:image/png;base64,${base64File}`;
+                : `data:application/pdf;base64,${base64File}`;
             const result = await cloudinary.uploader.upload(formattedFile, {
-                folder: `sellers/${sellerId}`, // Organize files in folders based on sellerId
+                folder: `sellers/${sellerId}`,
+                resource_type:'auto' // Organize files in folders based on sellerId
             });
             uploadedDocs.push(result.secure_url); // Save the secure URL from Cloudinary
         }
@@ -76,7 +80,7 @@ const additionalSellerData = async (req, res) => {
             documents: uploadedDocs,
         });
 
-        res.status(200).send({ message: "Seller details saved successfully!", uploadedDocs });
+        res.status(200).send({ message: `Seller details saved successfully! ${uploadedDocs}` });
     } catch (error) {
         console.error("Error uploading to Cloudinary:", error);
         res.status(500).send({ error: "Failed to save details" });
