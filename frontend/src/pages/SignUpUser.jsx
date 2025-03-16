@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 const Login = () => {
   // State for form inputs
   const [username, setUsername] = useState("");
@@ -114,15 +113,15 @@ const Login = () => {
 
             {/* Footer Links */}
             <div className="mt-3 text-center space-x-4">
-              <a href="#" className="text-gray-500 text-sm hover:underline">
+              <Link to="/customer-care" className="text-gray-500 text-sm hover:underline">
                 Customer Care
-              </a>
-              <a href="#" className="text-gray-500 text-sm hover:underline">
+              </Link>
+              <Link to="/support" className="text-gray-500 text-sm hover:underline">
                 Support
-              </a>
-              <a href="#" className="text-gray-500 text-sm hover:underline">
+              </Link>
+              <Link to="/terms-and-conditions" className="text-gray-500 text-sm hover:underline">
                 Terms and Conditions
-              </a>
+              </Link>
             </div>
           </div>
         </div>
