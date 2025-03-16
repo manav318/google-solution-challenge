@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const UploadDocuments = () => {
   // State for form inputs
@@ -13,6 +15,10 @@ const UploadDocuments = () => {
   const [uploadProgress, setUploadProgress] = useState(0); // Dynamic progress
   const [showUploadSection, setShowUploadSection] = useState(false); // Toggle upload section
   const [uploadedFiles, setUploadedFiles] = useState([]); // Store uploaded files
+  const [sellerId, setSellerId] = useState(null);
+  const [base64Files,setBase64Files]=useState([])
+  const navigate = useNavigate();
+
 
   // Required documents list (only 4 are necessary)
   const requiredDocuments = [
@@ -54,9 +60,33 @@ const UploadDocuments = () => {
     setUploadProgress(totalProgress > 100 ? 100 : totalProgress); // Cap progress at 100%
   }, [aadharNumber, panNumber, businessContactNumber, upiId, bankAccountNumber, selectedLocation, otp, uploadedFiles]);
 
+
+  useEffect(() => {
+    const storedSellerId = sessionStorage.getItem("sellerId");
+    if (!storedSellerId) {
+        alert("Seller ID not found! Please complete the first form.");
+        window.location = "/"; // Redirect to the first form if sellerId is missing
+    } else {
+        setSellerId(storedSellerId); // Set sellerId from sessionStorage
+    }
+}, []);
+
+const handleDrop = (e) => {
+  e.preventDefault();
+  const files = Array.from(e.dataTransfer.files);
+  const newFiles = files.map(file => ({
+    name: file.name,
+    progress: 100, // Set initial progress to 100% for simplicity
+    file: file
+  }));
+  
+  setUploadedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+};
   // Handle form submission
-  const handleSubmit = (e) => {
-    if (e) e.preventDefault();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     console.log("Aadhar Number:", aadharNumber);
     console.log("PAN Number:", panNumber);
     console.log("Business Contact Number:", businessContactNumber);
@@ -65,6 +95,48 @@ const UploadDocuments = () => {
     console.log("Selected Location:", selectedLocation);
     console.log("OTP:", otp);
     console.log("Uploaded Files:", uploadedFiles);
+
+    
+        
+        try {
+          const newFiles=[]
+          for (const file of uploadedFiles) {
+              
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onloadend = () => {
+                    //console.log(`File: ${file.name}, Base64: ${reader.result}`);
+                    newFiles.push(reader.result)
+                  }
+                  
+              
+              
+          }
+          setBase64Files(newFiles)
+          if(base64Files)
+            console.log("base64",base64Files)
+          else 
+            console.log("no base64")
+            const response = await axios.post(
+                `http://localhost:7000/api/upload/sellers/${sellerId}/details`,
+                { details: {
+                  aadharNumber:aadharNumber,
+                  panNumber:panNumber,
+                  businessContactNumber:businessContactNumber,
+                  upiId:upiId,
+                  bankAccountNumber:bankAccountNumber,
+                  selectedLocation:selectedLocation
+                }, 
+                documents:base64Files}
+            );
+            console.log(response.data.message)
+        } catch (error) {
+            console.error("Error saving details:", error);
+            alert("Failed to save details");
+        }
+
+
+
     alert("Submitted for Review!");
   };
 
@@ -74,33 +146,33 @@ const UploadDocuments = () => {
     alert("OTP Verified Successfully!");
   };
 
-  // Handle file drop
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const files = Array.from(e.dataTransfer.files);
-    const newFiles = files.map(file => ({
-      name: file.name,
-      progress: 100, // Set initial progress to 100% for simplicity
-      file: file
-    }));
-    setUploadedFiles((prevFiles) => [...prevFiles, ...newFiles]);
-  };
-
-  // Handle file upload
-  const handleFileUpload = (e) => {
-    const files = Array.from(e.target.files);
-    const newFiles = files.map(file => ({
-      name: file.name,
-      progress: 100, // Set initial progress to 100% for simplicity
-      file: file
-    }));
-    setUploadedFiles((prevFiles) => [...prevFiles, ...newFiles]);
-  };
-
-  // Handle file removal
   const handleRemoveFile = (index) => {
     setUploadedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
+  // Handle file upload
+  const handleFileUpload = (e) => {
+    const files = Array.from(e.target.files);
+    
+    console.log(files)
+    setUploadedFiles((prevFiles)=>[...prevFiles,...files])
+    
+
+    
+   
+    console.log("uploaded files:",uploadedFiles)
+    e.target.value=[]
+
+  };
+
+
+  
+
+  // Handle file upload
+  
+
+  // Handle file removal
+  
+
 
   // Clear all form entries
   const handleClearForm = () => {
@@ -343,7 +415,11 @@ const UploadDocuments = () => {
                       id="file-upload"
                       type="file"
                       multiple
+
+                      name="uploadedFiles"
+
                       accept=".jpeg,.png,.gif,.mp4,.pdf,.psd,.ai,.docx,.ppt"
+
                       onChange={handleFileUpload}
                       className="hidden"
                     />
