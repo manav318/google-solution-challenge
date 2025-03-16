@@ -41,13 +41,13 @@ const SignUpSeller = () => {
                 const { sellerId } = response.data;
                 sessionStorage.setItem("sellerId", sellerId)
                 console.log("Seller created successfully!");
-                
+                navigate('/sign-up-seller-upload-documents');
             } catch (error) {
                 console.error("Error creating seller:", error);
                 console.log("Failed to create seller");
             }
   }
-  navigate('/sign-up-seller-upload-documents');
+  
 }
 
   return (
