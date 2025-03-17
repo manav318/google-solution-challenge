@@ -129,7 +129,10 @@ const handleDrop = (e) => {
                 }, 
                 documents:base64Files}
             );
-            console.log(response.data.message)
+            console.log("Documents uploaded")
+            console.log(response)
+
+
         } catch (error) {
             console.error("Error saving details:", error);
             alert("Failed to save details");
