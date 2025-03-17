@@ -19,7 +19,12 @@ const submitSellerData = async (req, res) => {
             password,
         });
         const sellerId = userRecord.uid; // Use the UID as the seller ID
-        
+        await db.collection("users").doc(userRecord.uid).set({
+            username: sellerName,
+            email: userRecord.email,
+            role: "seller", 
+            createdAt: new Date().toISOString(),
+        });
         const formattedLogoFile = logoFile.startsWith("data:")
             ? logoFile // If already prefixed, use as-is
             : `data:application/pdf;base64,${logoFile}`;

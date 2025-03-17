@@ -27,7 +27,6 @@ app.use(cors(corsOptions))
 app.use("/api/auth",authRoutes)
 app.use("/api/upload",sellerRoutes)
 
-
 app.listen(port,()=>{
     console.log(`Listening at Port: ${port}`)
 })

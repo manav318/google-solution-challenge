@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const Login = () => {
   // State for form inputs
@@ -8,21 +10,70 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+
+
+
+  //CLIENT SIDE FIREBASE INTEGRATION
+
+  const firebaseConfig = {
+        apiKey: import.meta.env.VITE_apiKey,
+        authDomain: import.meta.env.VITE_authDomain,
+        projectId: import.meta.env.VITE_projectID,
+        storageBucket: import.meta.env.VITE_storageBucket,
+        messagingSenderId: import.meta.env.VITE_messagingSenderId,
+        appId: import.meta.env.VITE_appID
+    };
+    
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    
+    async function signIn(email, password) {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const idToken = await userCredential.user.getIdToken(); 
+            
+            const res=await fetch("http://localhost:7000/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ idToken: idToken})
+            });
+            console.log("Sign-In successful!");
+            const json=await res.json()
+            console.log(json)
+        } catch (error) {
+            console.error("Error signing in:", error.message);
+        }
+    }
+
+
   const handleSubmit =async  (e) => {
     e.preventDefault();
     console.log("Username:", username);
     console.log("Email/Phone:", emailOrPhone);
     console.log("Password:", password);
     console.log("Confirm Password:", confirmPassword);
-    const res=await fetch("http://localhost:7000/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({email: emailOrPhone,
-        password: password
-      })
-  });
-    const json=await res.json();
-    console.log(json)
+    try
+    {
+      const res=await fetch("http://localhost:7000/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({email: emailOrPhone,
+          password: password,
+          username:username
+        })
+    });
+      const json=await res.json();
+      console.log("Sign up successful")
+      console.log(json)
+
+      signIn(emailOrPhone,password)
+    }
+    catch(error){
+      console.log("Error: ",error)
+    }
+    
   };
 
   return (
