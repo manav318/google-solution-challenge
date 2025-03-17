@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StoreHeader from "../components/StoreHeader.jsx";
+import SubHeader from "../components/SubHeader.jsx"; // Import SubHeader
+import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa"; // Icons for search, cart, and profile
 
 const Store = () => {
   const [priceRange, setPriceRange] = useState([0, 1000]); // [min, max]
@@ -7,6 +9,19 @@ const Store = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("priceLowToHigh");
+  const [availability, setAvailability] = useState("in-stock");
+  const [selectedBrands, setSelectedBrands] = useState([]);
+
+  // Dummy brands data
+  const brands = ["Local Artisans", "Tribal Crafts", "Organic Foods", "Village Industries"];
+
+  const clearFilters = () => {
+    setPriceRange([0, 1000]);
+    setMinReview(0);
+    setSelectedCategory("");
+    setSelectedBrands([]);
+    setAvailability("in-stock");
+  };
 
   // Dummy data for products
   const products = [
@@ -149,7 +164,7 @@ const Store = () => {
 
   // Preload images
   useEffect(() => {
-    products.forEach(product => {
+    products.forEach((product) => {
       const img = new Image();
       img.src = product.image;
     });
@@ -165,7 +180,8 @@ const Store = () => {
         (selectedCategory ? product.category === selectedCategory : true) &&
         (searchQuery
           ? product.name.toLowerCase().includes(searchQuery.toLowerCase())
-          : true)
+          : true) &&
+        (selectedBrands.length > 0 ? selectedBrands.includes(product.brand) : true)
     )
     .sort((a, b) => {
       if (sortOption === "priceLowToHigh") return a.price - b.price;
@@ -237,88 +253,34 @@ const Store = () => {
       {/* Top Section - Full Width Graphic */}
       <StoreHeader />
 
+      {/* SubHeader Section */}
+      <SubHeader
+        filteredProducts={filteredProducts}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        priceRange={priceRange}
+        setPriceRange={setPriceRange}
+        minReview={minReview}
+        setMinReview={setMinReview}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        categories={categories}
+        availability={availability}
+        setAvailability={setAvailability}
+        brands={brands}
+        selectedBrands={selectedBrands}
+        setSelectedBrands={setSelectedBrands}
+        clearFilters={clearFilters}
+      />
+
       {/* Main Content Section */}
-      <div className="main-content flex mt-5 relative">
-        {/* Left Section - Filters */}
-        <div className="left-section w-1/5 p-5 bg-gray-100 rounded-lg shadow-lg sticky top-0 self-start h-screen overflow-y-auto z-20">
-          <h3 className="text-center mb-5 text-gray-800">Filters</h3>
-
-          {/* Price Range Slider */}
-          <div className="mb-5">
-            <label className="block text-center mb-2">
-              Price Range: ${priceRange[0]} - ${priceRange[1]}
-            </label>
-            <div className="flex justify-center gap-2">
-              <input
-                type="range"
-                min="0"
-                max="1000"
-                value={priceRange[0]}
-                onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
-                className="accent-blue-500"
-              />
-              <input
-                type="range"
-                min="0"
-                max="1000"
-                value={priceRange[1]}
-                onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                className="accent-blue-500"
-              />
-            </div>
-          </div>
-
-          {/* Minimum Review Filter */}
-          <div className="mb-5 text-center">
-            <label className="block mb-2">Minimum Review:</label>
-            <StarRating rating={minReview} setRating={setMinReview} />
-          </div>
-
-          {/* Category List */}
-          <div className="mb-5 text-center">
-            <label className="block mb-2">Categories:</label>
-            <div className="flex flex-col gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleCategoryClick(category)}
-                  className={`p-2 rounded-lg border ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-white text-gray-800"} cursor-pointer`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
+      <div className="main-content flex mt-[2vh] relative">
         {/* Right Section - Main Content */}
         <div className="right-section flex-1 p-2 relative">
-          {/* Sub Header */}
-          <div className="sub-header flex justify-between sticky top-0 bg-white z-10 p-2 shadow-lg">
-            <div>{filteredProducts.length} Products</div>
-            <div className="flex gap-2">
-              <select
-                value={sortOption}
-                onChange={(e) => setSortOption(e.target.value)}
-                className="p-2 rounded-lg border bg-white accent-blue-500"
-              >
-                <option value="priceLowToHigh">Price: Low to High</option>
-                <option value="priceHighToLow">Price: High to Low</option>
-                <option value="ratingHighToLow">Rating: High to Low</option>
-                <option value="ratingLowToHigh">Rating: Low to High</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="p-2 rounded-lg border bg-white"
-              />
-            </div>
-          </div>
-
           {/* Product Grid */}
-          <div className="product-grid grid grid-cols-3 gap-5 mt-5">
+          <div className="product-grid grid grid-cols-4 gap-5 ">
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
