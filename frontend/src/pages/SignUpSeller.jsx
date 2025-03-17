@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const SignUpSeller = () => {
   // State for form inputs
@@ -11,6 +13,48 @@ const SignUpSeller = () => {
   const [logoFile, setLogoFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
   const navigate=useNavigate()
+  
+  
+  
+  
+  
+  //CLIENT SIDE FIREBASE INTEGRATION
+  
+    const firebaseConfig = {
+          apiKey: import.meta.env.VITE_apiKey,
+          authDomain: import.meta.env.VITE_authDomain,
+          projectId: import.meta.env.VITE_projectID,
+          storageBucket: import.meta.env.VITE_storageBucket,
+          messagingSenderId: import.meta.env.VITE_messagingSenderId,
+          appId: import.meta.env.VITE_appID
+      };
+      
+      
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      
+      
+      async function signIn(email, password) {
+          try {
+              const userCredential = await signInWithEmailAndPassword(auth, email, password);
+              const idToken = await userCredential.user.getIdToken(); 
+              
+              const res=await fetch("http://localhost:7000/api/auth/login", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ idToken: idToken})
+              });
+              console.log("Sign-In successful!");
+              const json=await res.json()
+              console.log(json)
+          } catch (error) {
+              console.error("Error signing in:", error.message);
+          }
+      }
+  
+  
+  
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Seller Name:", sellerName);
@@ -41,7 +85,11 @@ const SignUpSeller = () => {
                 const { sellerId } = response.data;
                 sessionStorage.setItem("sellerId", sellerId)
                 console.log("Seller created successfully!");
+                
                 navigate('/sign-up-seller-upload-documents');
+                console.log(response);
+                signIn(email,password)
+                
             } catch (error) {
                 console.error("Error creating seller:", error);
                 console.log("Failed to create seller");
