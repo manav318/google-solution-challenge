@@ -1,4 +1,5 @@
 const {admin,db,bucket}=require("../lib/firebase.js")
+const {getFirestore,doc,setDoc}=require("firebase/firestore")
 
 const cookieOptions = {
     httpOnly: true, // Prevents JavaScript access to cookies
@@ -8,13 +9,20 @@ const cookieOptions = {
 
 
 const signup=async (req,res)=>{
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
     try {
         const userRecord = await admin.auth().createUser({
             email,
             password,
         });
-        
+        console.log('User signed up: ',userRecord)
+        await db.collection("users").doc(userRecord.uid).set({
+            username: username,
+            email: userRecord.email,
+            role: "user", // Default role is "user" if none provided
+            createdAt: new Date().toISOString(),
+
+        });
         res.status(201).send(userRecord);
     } catch (error) {
         res.status(500).send(error.message);
@@ -30,7 +38,7 @@ const login=async (req, res) => {
             res.status(401).send({ message: "Sign-In failed", error: error.message });
         const sessionCookie = await admin.auth().createSessionCookie(idToken, { expiresIn: cookieOptions.maxAge });
         res.cookie("session", sessionCookie, cookieOptions); // Set session cookie
-        res.send({ message: "Sign-In successful!" });
+        res.send({ message: "Sign-In successful!", sessionCookie: sessionCookie});
     } catch (error) {
         res.status(401).send({ message: "Sign-In failed", error: error.message });
     }
