@@ -15,6 +15,7 @@ import Support from "./pages/Support.jsx"
 import CustomerCare from "./pages/CustomerCare.jsx"
 import SignUpSellerUploadDocuments from "./pages/SignUpSellerUploadDocuments.jsx"
 import PartnerWithUs from "./pages/PartnerWithUs.jsx"
+import ProductPage from "./pages/ProductPage.jsx"
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/terms-and-conditions" element={<TermsAndCondition />} />
           <Route path="/sign-up-seller-upload-documents" element={<SignUpSellerUploadDocuments />} />
           <Route path="/partner-with-us" element={<PartnerWithUs />} />
+          <Route path="/store/product-page" element={<ProductPage />} />
         </Routes>
       </div>
     </>
