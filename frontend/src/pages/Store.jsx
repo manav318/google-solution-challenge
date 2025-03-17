@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useVirtual } from 'react-virtual';
 import StoreHeader from "../components/StoreHeader.jsx";
 import SubHeader from "../components/SubHeader.jsx"; // Import SubHeader
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa"; // Icons for search, cart, and profile
@@ -162,34 +163,57 @@ const Store = () => {
     },
   ];
 
-  // Preload images
-  useEffect(() => {
-    products.forEach((product) => {
-      const img = new Image();
-      img.src = product.image;
+  // Memoize filtered products
+  const filteredProducts = useMemo(() => {
+    return products
+      .filter(
+        (product) =>
+          product.price >= priceRange[0] &&
+          product.price <= priceRange[1] &&
+          product.rating >= minReview &&
+          (selectedCategory ? product.category === selectedCategory : true) &&
+          (searchQuery
+            ? product.name.toLowerCase().includes(searchQuery.toLowerCase())
+            : true) &&
+          (selectedBrands.length > 0 ? selectedBrands.includes(product.brand) : true)
+      )
+      .sort((a, b) => {
+        if (sortOption === "priceLowToHigh") return a.price - b.price;
+        if (sortOption === "priceHighToLow") return b.price - a.price;
+        if (sortOption === "ratingHighToLow") return b.rating - b.rating;
+        if (sortOption === "ratingLowToHigh") return a.rating - b.rating;
+        return 0;
+      });
+  }, [products, priceRange, minReview, selectedCategory, searchQuery, selectedBrands, sortOption]);
+
+  // Optimize image loading with intersection observer
+  const imageObserver = useMemo(() => {
+    return new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          imageObserver.unobserve(img);
+        }
+      });
     });
   }, []);
 
-  // Filter and sort products based on state
-  const filteredProducts = products
-    .filter(
-      (product) =>
-        product.price >= priceRange[0] &&
-        product.price <= priceRange[1] &&
-        product.rating >= minReview &&
-        (selectedCategory ? product.category === selectedCategory : true) &&
-        (searchQuery
-          ? product.name.toLowerCase().includes(searchQuery.toLowerCase())
-          : true) &&
-        (selectedBrands.length > 0 ? selectedBrands.includes(product.brand) : true)
-    )
-    .sort((a, b) => {
-      if (sortOption === "priceLowToHigh") return a.price - b.price;
-      if (sortOption === "priceHighToLow") return b.price - a.price;
-      if (sortOption === "ratingHighToLow") return b.rating - a.rating;
-      if (sortOption === "ratingLowToHigh") return a.rating - b.rating;
-      return 0;
-    });
+  // Preload images with priority
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = filteredProducts.map((product) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = product.image;
+        });
+      });
+      await Promise.all(imagePromises);
+    };
+    preloadImages();
+  }, [filteredProducts]);
 
   // Categories list (updated to include all categories)
   const categories = [
@@ -280,16 +304,18 @@ const Store = () => {
         {/* Right Section - Main Content */}
         <div className="right-section flex-1 p-2 relative">
           {/* Product Grid */}
-          <div className="product-grid grid grid-cols-4 gap-5 ">
+          <div className="product-grid grid grid-cols-4 gap-5">
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
                 className="product-card border p-2 rounded-lg shadow-lg cursor-pointer"
               >
                 <img
-                  src={product.image}
+                  data-src={product.image}
                   alt={product.name}
                   className="w-full h-72 object-cover rounded-lg"
+                  loading="lazy"
+                  ref={(el) => el && imageObserver.observe(el)}
                 />
                 <div className="flex justify-between mt-2">
                   <div>
@@ -311,4 +337,4 @@ const Store = () => {
   );
 };
 
-export default Store;
+export default React.memo(Store);
