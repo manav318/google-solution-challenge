@@ -2,167 +2,92 @@ import React, { useState, useEffect } from "react";
 
 const WomenSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [brightDots, setBrightDots] = useState([]);
+  const [prevImageIndex, setPrevImageIndex] = useState(0);
+  const [bgImageIndex, setBgImageIndex] = useState(0); // Delayed background update
 
-  // Array of images with corresponding pastel gradient backgrounds
   const images = [
     {
-      url: "pics/women1.jpg", // Image path
-      gradient: "linear-gradient(135deg, #A8D8EA, #FF9AA2, #FFDAC1)", // Pastel Blue, Pink, Peach
+      url: "pics/women1.jpg",
+      gradient: "linear-gradient(90deg, #0A2647, #144272, #2C5364, #2C5364)",
     },
     {
-      url: "pics/women2.jpg", // Image path
-      gradient: "linear-gradient(135deg, #B5EAD7, #C7CEEA, #E2F0CB)", // Pastel Green, Lavender, Mint
+      url: "pics/women2.jpg",
+      gradient: "linear-gradient(90deg, #C6EBC5, #A1C4FD, #708090, #FFFFFF)",
     },
     {
-      url: "pics/women3.jpg", // Image path
-      gradient: "linear-gradient(135deg, #FFB7B2, #FFDAC1, #E2F0CB)", // Pastel Coral, Peach, Mint
+      url: "pics/women3.jpg",
+      gradient: "linear-gradient(90deg, #FF0000, #8B4513, #2E8B57, #11111F)",
     },
     {
-      url: "pics/women4.jpg", // Image path
-      gradient: "linear-gradient(135deg, #C7CEEA, #FF9AA2, #B5EAD7)", // Pastel Lavender, Pink, Green
+      url: "pics/women4.jpg",
+      gradient: "linear-gradient(90deg, #1E90FF, #8B4513, #FFFFFF, #FFFFFF)",
     },
   ];
 
-  // Function to shuffle images
   useEffect(() => {
     const interval = setInterval(() => {
+      setPrevImageIndex(currentImageIndex); // Store previous image index for smooth fade
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+
+      // Delay the background transition by 1 second
+      setTimeout(() => {
+        setBgImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      }, 1000);
+    }, 6000);
 
     return () => clearInterval(interval);
-  }, [images.length]);
-
-  // Function to randomly brighten dots
-  useEffect(() => {
-    const dotInterval = setInterval(() => {
-      const randomDots = Array.from({ length: 20 }, () => ({
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        opacity: Math.random(),
-      }));
-      setBrightDots(randomDots);
-    }, 1000); // Change dot brightness every second
-
-    return () => clearInterval(dotInterval);
-  }, []);
+  }, [currentImageIndex, images.length]);
 
   return (
-    <div
-      className="women-section"
-      style={{
-        height: "40vh",
-        width: "80%", // Reduced width
-        margin: "0 auto", // Center the div
-        display: "flex",
-        background: images[currentImageIndex].gradient,
-        transition: "background 1.5s ease", // Smooth background transition
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: "12px", // Rounded corners
-      }}
-    >
-      {/* Matrix-like Dots Background */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background: "radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "20px 20px", // Grid of dots
-          zIndex: 0, // Ensure dots are behind the content
-        }}
-      >
-        {/* Randomly brightened dots */}
-        {brightDots.map((dot, index) => (
-          <div
-            key={index}
-            style={{
-              position: "absolute",
-              top: dot.top,
-              left: dot.left,
-              width: "4px",
-              height: "4px",
-              backgroundColor: "rgba(255, 255, 255, 0.8)",
-              borderRadius: "50%",
-              opacity: dot.opacity,
-              transition: "opacity 0.5s ease", // Smooth dot brightness transition
-            }}
-          />
-        ))}
+    <div className="flex h-[25vh] w-[90vw] mx-auto relative overflow-hidden rounded-xl shadow-md">
+      {/* Smooth Background Transition */}
+      <div className="absolute top-0 left-0 w-full h-full z-10">
+        {/* Previous Background (Fading Out) */}
+        <div
+          className="absolute top-0 left-0 w-full h-full transition-opacity duration-[5000ms] ease-in-out"
+          style={{
+            background: images[prevImageIndex].gradient,
+            opacity: 0, // Fades out smoothly
+          }}
+        />
+        {/* Delayed Background (Fading In after 1 sec) */}
+        <div
+          className="absolute top-0 left-0 w-full h-full transition-opacity duration-[5000ms] ease-in-out"
+          style={{
+            background: images[bgImageIndex].gradient,
+            opacity: 1, // Fades in smoothly after 1 sec delay
+          }}
+        />
       </div>
 
-      {/* Uniform Blur on Entire Background */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backdropFilter: "blur(8px)", // Uniform blur effect
-          zIndex: 1, // Ensure blur is behind the content
-        }}
-      />
-
-      {/* Text Section (2/3rd of the width) */}
-      <div
-        className="text-section"
-        style={{
-          flex: "2",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#fff",
-          fontSize: "2.5rem",
-          fontWeight: "bold",
-          padding: "20px",
-          zIndex: 2, // Ensure text is above the blur effect
-          textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)", // Add shadow for better readability
-        }}
-      >
+      {/* Text Section */}
+      <div className="flex-[2] flex items-center justify-center text-white text-4xl font-bold p-5 z-20 text-shadow">
         <p>For Women, By Women</p>
       </div>
 
-      {/* Image Section (1/3rd of the width) */}
-      <div
-        className="image-section"
-        style={{
-          flex: "1",
-          position: "relative",
-          overflow: "hidden",
-          zIndex: 2, // Ensure image is above the blur effect
-        }}
-      >
+      {/* Image Slider */}
+      <div className="w-[25vh] h-[25vh] relative overflow-hidden z-20">
         <div
+          className="flex transition-transform duration-[6000ms] ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
           style={{
-            display: "flex",
-            width: `${images.length * 100}%`, // Total width of all images
-            transform: `translateX(-${(currentImageIndex / images.length) * 100}%)`, // Slide horizontally
-            transition: "transform 1.5s ease", // Smooth slide transition
+            width: `${images.length * 100}%`,
+            transform: `translateX(-${(currentImageIndex / images.length) * 100}%)`,
           }}
         >
           {images.map((image, index) => (
             <div
               key={index}
+              className="w-full h-full flex items-center justify-center bg-white/30"
               style={{
-                width: `${100 / images.length}%`, // Each image takes equal width
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "rgba(255, 255, 255, 0.3)", // Background color for empty space
+                width: `${100 / images.length}%`,
               }}
             >
               <img
                 src={image.url}
                 alt={`Slide ${index}`}
+                className="w-full h-full object-cover"
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain", // Ensure the image fits without cropping
+                  objectPosition: "center",
                 }}
               />
             </div>
