@@ -61,7 +61,7 @@ const past = () => {
                     </div>
                 </div>
                 <Link
-                    to="campaign-dashboard/past-campaigns/"
+                    to="/dashboard-campaign"
                     className="absolute bottom-1 flex justify-center items-center left-[550px] text-blue-600 text-xl font-semibold border-0 rounded-full w-52 h-10 shadow-2xl"
                 >
                     and Many More...
