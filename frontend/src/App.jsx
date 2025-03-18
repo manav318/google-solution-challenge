@@ -18,6 +18,7 @@ import PartnerWithUs from "./pages/PartnerWithUs.jsx"
 import ProductPage from "./pages/ProductPage.jsx"
 import UserDashboard from "./pages/UserDashboard.jsx";
 import SellerDashboard from "./pages/SellerDashboard.jsx";
+import UploadProducts from "./pages/UploadProducts.jsx";
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/store/product-page" element={<ProductPage />} />
           <Route path="/dashboard-user" element={<UserDashboard/>} />
           <Route path="/dashboard-seller" element={<SellerDashboard/>} />
+          <Route path="/seller-upload-product" element={<UploadProducts/>} />
         </Routes>
       </div>
     </>
