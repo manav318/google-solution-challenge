@@ -23,7 +23,7 @@ const SideBarProfile = () => {
     };
 
     return (
-        <div className="h-full w-[25vw] bg-blue-600 flex flex-col items-center pt-[3vh]">
+        <div className="h-full w-[25vw] bg-blue-600 flex flex-col items-center pt-[3vh] fixed top-0 left-0 mt-[6vh]">
             {/* Profile Section */}
             <div className="flex flex-col items-center gap-[2vh]">
                 <div className="h-[18vh] w-[18vh] rounded-full border-4 border-blue-400 overflow-hidden">
