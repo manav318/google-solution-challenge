@@ -15,7 +15,7 @@ const CampProfile = () => {
         location: "New York City, NY",
         start: "2023-07-01",
         end: "2023-08-31",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 40.7128, lng: -74.0060 }
       },
       {
@@ -25,7 +25,7 @@ const CampProfile = () => {
         location: "San Francisco, CA",
         start: "2023-09-01",
         end: "2023-09-30",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 37.7749, lng: -122.4194 }
       },
       {
@@ -35,7 +35,7 @@ const CampProfile = () => {
         location: "Chicago, IL",
         start: "2023-10-01",
         end: "2023-10-07",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 41.8781, lng: -87.6298 }
       }
     ],
@@ -47,7 +47,7 @@ const CampProfile = () => {
         location: "Chicago, IL",
         start: "2023-12-01",
         end: "2023-12-31",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 41.8781, lng: -87.6298 }
       },
       {
@@ -57,7 +57,7 @@ const CampProfile = () => {
         location: "Los Angeles, CA",
         start: "2023-11-15",
         end: "2023-12-15",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 34.0522, lng: -118.2437 }
       },
       {
@@ -67,7 +67,7 @@ const CampProfile = () => {
         location: "Miami, FL",
         start: "2024-01-01",
         end: "2024-01-01",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 25.7617, lng: -80.1918 }
       }
     ],
@@ -79,7 +79,7 @@ const CampProfile = () => {
         location: "Los Angeles, CA",
         start: "2023-03-01",
         end: "2023-04-30",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 34.0522, lng: -118.2437 }
       },
       {
@@ -89,7 +89,7 @@ const CampProfile = () => {
         location: "Seattle, WA",
         start: "2023-04-22",
         end: "2023-04-22",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 47.6062, lng: -122.3321 }
       },
       {
@@ -99,7 +99,7 @@ const CampProfile = () => {
         location: "Boston, MA",
         start: "2023-08-01",
         end: "2023-08-31",
-        image: "https://via.placeholder.com/100",
+        image: "pics/campaign.png",
         coordinates: { lat: 42.3601, lng: -71.0589 }
       }
     ]
