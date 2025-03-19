@@ -13,6 +13,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate=useNavigate()
+  const [isLoggingIn,setIsLoggingIn]=useState(false)
+  const[isLoggedIn,setIsLoggedIn]=useState(false)
+  
   //CLIENT SIDE FIREBASE INTEGRATION
     
     const firebaseConfig = {
@@ -31,6 +34,7 @@ const Login = () => {
   
   async function signIn(email, password) {
       try {
+          setIsLoggingIn(true)
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           const idToken = await userCredential.user.getIdToken(); 
           
@@ -42,9 +46,13 @@ const Login = () => {
           const json=await response.json()
           const uid=json.user.uid
           console.log("uid",uid)
+          console.log(json.loginCookie)
+          const date = new Date();
+          date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
+          const exp="; expires=" + date.toUTCString();
+          document.cookie=`loginToken=${json.loginCookie||""}${exp}; path=/`
           const details=await fetch(`http://localhost:7000/api/get-role/${uid}`)
           const detailsjson=await details.json()
-          
           const role=detailsjson.role
           console.log(role)
           if(role==="seller")
@@ -52,8 +60,11 @@ const Login = () => {
           else if(role==="user")
               navigate("/dashboard-user")
           console.log("Sign-In successful!");
+          setIsLoggedIn(true)
+          setIsLoggingIn(false)
       } catch (error) {
           console.error("Error signing in:", error.message);
+          setIsLoggedIn(false)
       }
   }
 
