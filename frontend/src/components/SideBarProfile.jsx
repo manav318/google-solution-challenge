@@ -26,6 +26,7 @@ const SideBarProfile = () => {
             
         });
         document.cookie = "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie="sellerId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         navigate("/")
         console.log("User logged out");
     };
