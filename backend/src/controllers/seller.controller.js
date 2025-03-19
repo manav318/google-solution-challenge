@@ -93,6 +93,11 @@ const additionalSellerData = async (req, res) => {
 
 }
 
-module.exports={submitSellerData,additionalSellerData}
+const getSellerDetails=async(req,res)=>{
+    
+}
+
+
+module.exports={submitSellerData,additionalSellerData,getSellerDetails}
 
     

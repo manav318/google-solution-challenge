@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserEdit, FaCog, FaUserCircle, FaSun, FaMoon, FaSignOutAlt, FaLock } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const SideBarProfile = () => {
     const [isDarkTheme, setIsDarkTheme] = useState(false); // State for theme toggle
-
+    const navigate=useNavigate()
     // Function to toggle between light and dark themes
     const toggleTheme = () => {
         setIsDarkTheme((prev) => !prev);
@@ -17,8 +18,14 @@ const SideBarProfile = () => {
     };
 
     // Function to handle logout
-    const handleLogout = () => {
+    const handleLogout =async () => {
         // Add your logout logic here
+        await fetch("http:localhost:7000/api/auth/logout",{
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            
+        });
+        navigate("/")
         console.log("User logged out");
     };
 
