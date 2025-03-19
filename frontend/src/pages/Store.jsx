@@ -308,8 +308,7 @@ const Store = () => {
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="product-card border p-2 rounded-lg shadow-lg cursor-pointer"
-              >
+                className="product-card border p-2 rounded-lg shadow-lg cursor-pointer"              >
                 <img
                   data-src={product.image}
                   alt={product.name}

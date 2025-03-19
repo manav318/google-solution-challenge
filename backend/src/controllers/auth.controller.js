@@ -36,9 +36,10 @@ const login=async (req, res) => {
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         if(!decodedToken)
             res.status(401).send({ message: "Sign-In failed", error: error.message });
-        const sessionCookie = await admin.auth().createSessionCookie(idToken, { expiresIn: cookieOptions.maxAge });
-        res.cookie("session", sessionCookie, cookieOptions); // Set session cookie
-        res.send({ message: "Sign-In successful!", sessionCookie: sessionCookie});
+        const loginCookie = await admin.auth().createSessionCookie(idToken, { expiresIn: cookieOptions.maxAge });
+        res.cookie("loginToken", loginCookie, cookieOptions); // Set session cookie
+        res.send({ message: "Sign-In successful!", loginCookie: loginCookie,user:decodedToken});
+
     } catch (error) {
         res.status(401).send({ message: "Sign-In failed", error: error.message });
     }
@@ -50,13 +51,14 @@ const logout=(req, res) => {
 };
 
 const verifySession = async (req, res, next) => {
-    const sessionCookie = req.cookies.session;
+    const sessionCookie = req.cookies.loginToken;
     if (!sessionCookie) {
         return res.status(401).send({ message: "Unauthorized. No session cookie found." });
     }
     try {
         const decodedToken = await admin.auth().verifySessionCookie(sessionCookie, true);
         req.user = decodedToken;
+        console.log("user: ",user)
         next();
     } catch (error) {
         res.status(401).send({ message: "Invalid or expired session cookie.", error: error.message });
