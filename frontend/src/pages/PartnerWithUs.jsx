@@ -6,7 +6,7 @@ const Partner = () => {
   const [agreed, setAgreed] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white p-8 pt-[6vh]">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white p-8 mt-[6vh]">
       {/* Header */}
       <h1 className="text-4xl font-bold text-center mb-6 text-blue-900">LET US KNOW - GET INVOLVED !!</h1>
 
