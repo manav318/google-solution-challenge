@@ -65,7 +65,7 @@ const UserMainDashSection = () => {
     };
 
     return (
-        <div className="flex flex-col items-center p-4 w-[75vw]">
+        <div className="flex flex-col items-center p-4 w-[75vw] ml-[25vw]">
             {/* Headings Section */}
             <div className="flex justify-between w-full max-w-4xl mb-6 relative">
                 {/* Underline for all headings */}

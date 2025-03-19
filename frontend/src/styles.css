@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  background-color: white;
-  color: black;
-}
+
 
 /* Hide the scrollbar track */
 ::-webkit-scrollbar {
@@ -24,9 +21,24 @@ body{
 }
 
 
+/* Ensure the page starts at the top */
 html, body {
-  overflow-x: hidden;
-  max-width: 100vw;
+  scroll-behavior: smooth; /* Optional: Smooth scrolling */
+  scroll-padding-top: 0; /* Reset scroll padding */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Force the page to start at the top on load */
+html {
+  scroll-snap-type: y mandatory; /* Optional: Snap to top */
+}
+
+body {
+  scroll-snap-align: start; /* Optional: Snap to top */
+  background-color: white;
+  color: black;
 }
 * {
   box-sizing: border-box;
