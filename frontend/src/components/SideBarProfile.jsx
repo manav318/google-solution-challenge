@@ -31,25 +31,16 @@ const SideBarProfile = () => {
     };
 
     // Function to handle logout
-    const handleLogout = async () => {
-        try {
-            const response = await fetch("http://localhost:7000/api/auth/logout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include", // Include cookies in the request
-            });
-
-            if (response.ok) {
-                // Clear the loginToken cookie
-                document.cookie = "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                navigate("/"); // Redirect to the home page
-                console.log("User logged out");
-            } else {
-                console.error("Logout failed:", response.statusText);
-            }
-        } catch (error) {
-            console.error("Error during logout:", error);
-        }
+    const handleLogout =async () => {
+        // Add your logout logic here
+        await fetch("http:localhost:7000/api/auth/logout",{
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            
+        });
+        document.cookie = "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        navigate("/")
+        console.log("User logged out");
     };
 
     return (

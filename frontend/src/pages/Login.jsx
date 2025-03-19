@@ -56,7 +56,11 @@ const Login = () => {
           const role=detailsjson.role
           console.log(role)
           if(role==="seller")
-              navigate("/dashboard-seller")
+          {
+                
+                document.cookie=`sellerID=${uid||""}${exp}; path=/`
+                navigate("/dashboard-seller")
+                      }
           else if(role==="user")
               navigate("/dashboard-user")
           console.log("Sign-In successful!");
