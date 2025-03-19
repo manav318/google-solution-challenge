@@ -13,13 +13,14 @@ const WavyBackground = ({
   blur = 7,
   speed = "fast",
   waveOpacity = 0.5,
-  positions = [0.1,0.2, 0.3,0.4,0.5,0.6,0.7,0.8, 0.9,0.95, 0.99], // Default positions for waves
+  positions = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99], // Default positions for waves
   ...props
 }) => {
   const noise = createNoise3D();
   let w, h, nt, i, x, ctx, canvas;
   const canvasRef = useRef(null);
   const animationId = useRef(null); // Use a ref to store the animation frame ID
+  const containerRef = useRef(null); // Ref for the container to observe visibility
 
   const getSpeed = () => {
     switch (speed) {
@@ -45,23 +46,21 @@ const WavyBackground = ({
       h = ctx.canvas.height = window.innerHeight;
       ctx.filter = `blur(${blur}px)`;
     };
-
-    startAnimation();
   };
 
   const waveColors = colors ?? [
-"#dbeafe",  /* blue-100 */
-"#bfdbfe",  /* blue-200 */
-"#93c5fd",  /* blue-300 */
-"#60a5fa",  /* blue-400 */
-"#3b82f6",  /* blue-500 */
-"#2563eb",  /* blue-600 */
-"#1d4ed8",  /* blue-700 */
-"#1e40af",  /* blue-800 */
-"#1e3a8a" ,  /* blue-900 */
-"#1e3a8a" ,  /* blue-900 */
-"#1e3a8a" ,  /* blue-900 */
-"#1e3a8a"   /* blue-900 */
+    "#dbeafe", /* blue-100 */
+    "#bfdbfe", /* blue-200 */
+    "#93c5fd", /* blue-300 */
+    "#60a5fa", /* blue-400 */
+    "#3b82f6", /* blue-500 */
+    "#2563eb", /* blue-600 */
+    "#1d4ed8", /* blue-700 */
+    "#1e40af", /* blue-800 */
+    "#1e3a8a", /* blue-900 */
+    "#1e3a8a", /* blue-900 */
+    "#1e3a8a", /* blue-900 */
+    "#1e3a8a", /* blue-900 */
   ];
 
   const drawWave = (n) => {
@@ -105,26 +104,38 @@ const WavyBackground = ({
   useEffect(() => {
     init();
 
-    // Add visibility change listener
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        startAnimation();
-      } else {
-        stopAnimation();
+    // IntersectionObserver to check if the component is in view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startAnimation(); // Start animation when in view
+          } else {
+            stopAnimation(); // Stop animation when out of view
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when at least 10% of the component is visible
       }
-    };
+    );
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     // Cleanup
     return () => {
       stopAnimation();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
     };
   }, []);
 
   return (
     <div
+      ref={containerRef} // Attach the ref to the container
       className={cn(
         "h-screen flex flex-col items-center justify-center",
         containerClassName
