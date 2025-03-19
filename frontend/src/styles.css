@@ -22,7 +22,7 @@
 
 
 /* Ensure the page starts at the top */
-html, body {
+html {
   scroll-behavior: smooth; /* Optional: Smooth scrolling */
   scroll-padding-top: 0; /* Reset scroll padding */
   margin: 0;
@@ -35,10 +35,23 @@ html {
   scroll-snap-type: y mandatory; /* Optional: Snap to top */
 }
 
+/* Light Theme (Default) */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+/* Dark Theme */
+.dark {
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
+}
+
+/* Apply the theme to the body */
 body {
-  scroll-snap-align: start; /* Optional: Snap to top */
-  background-color: white;
-  color: black;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 * {
   box-sizing: border-box;
