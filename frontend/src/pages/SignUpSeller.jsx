@@ -70,7 +70,7 @@ const SignUpSeller = () => {
   const handleNext=(e)=>{
     e.preventDefault();
 
-        
+
     const reader = new FileReader();
         reader.readAsDataURL(logoFile);
         reader.onloadend = async () => {
@@ -85,6 +85,7 @@ const SignUpSeller = () => {
                 const { sellerId } = response.data;
                 sessionStorage.setItem("sellerId", sellerId)
                 console.log("Seller created successfully!");
+                //navigate to captcha
                 
                 navigate('/sign-up-seller-upload-documents');
                 console.log(response);
@@ -149,8 +150,8 @@ const SignUpSeller = () => {
                 <label className="text-gray-600">Upload Documents</label>
                 <div className="w-full p-2 border border-gray-300 rounded-md flex items-center justify-between">
                 <Link
-                    to="/sign-up-seller-upload-documents"
-                    // onClick={handleNext} // Replace with your desired route
+                    //to="/sign-up-seller-upload-documents"
+                    onClick={handleNext} // navigation to '/sign-up-seller-upload-documents is handled here
                     className="text-blue-500 hover:underline cursor-pointer"
                   >
                     Upload Documents
