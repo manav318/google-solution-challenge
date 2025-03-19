@@ -25,6 +25,7 @@ const SideBarProfile = () => {
             headers: { "Content-Type": "application/json" },
             
         });
+        document.cookie = "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigate("/")
         console.log("User logged out");
     };
