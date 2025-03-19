@@ -10,9 +10,10 @@ const WavyBackground = ({
   colors,
   waveWidth,
   backgroundFill,
-  blur = 10,
+  blur = 5,
   speed = "fast",
   waveOpacity = 0.5,
+  positions = [0.1, 0.3,0.5  ,0.7, 0.9], // Default positions for waves
   ...props
 }) => {
   const noise = createNoise3D();
@@ -60,11 +61,12 @@ const WavyBackground = ({
     nt += getSpeed();
     for (i = 0; i < n; i++) {
       ctx.beginPath();
-      ctx.lineWidth = waveWidth || 50;
+      ctx.lineWidth = waveWidth || 200;
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
-        ctx.lineTo(x, y + h * 0.5);
+        const y = noise(x / 800, 0.3 * i, nt) * 100;
+        const position = positions[i % positions.length]; // Use the position prop
+        ctx.lineTo(x, y + h * position); // Apply the position
       }
       ctx.stroke();
       ctx.closePath();
@@ -72,10 +74,10 @@ const WavyBackground = ({
   };
 
   const render = () => {
-    ctx.fillStyle = backgroundFill || "black";
+    ctx.fillStyle = backgroundFill || "white";
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
-    drawWave(3);
+    drawWave(positions.length); // Draw waves based on the number of positions
 
     animationId.current = requestAnimationFrame(render);
   };

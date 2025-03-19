@@ -11,7 +11,7 @@ const SellerMainDashSection = () => {
             icon: <FaShoppingCart className="text-blue-600" />,
             trend: "+10%",
             trendType: "up",
-            graphData: [30, 40, 35, 50, 49, 60, 70],
+            graphData: [30, 40, 35, 50, 49, 40, 50],
         },
         {
             id: 2,
@@ -20,7 +20,7 @@ const SellerMainDashSection = () => {
             icon: <FaDollarSign className="text-blue-600" />,
             trend: "-5%",
             trendType: "down",
-            graphData: [50, 60, 55, 70, 65, 45, 40],
+            graphData: [50, 60, 55, 23, 55, 45, 40],
         },
         {
             id: 3,
@@ -29,7 +29,7 @@ const SellerMainDashSection = () => {
             icon: <FaBox className="text-blue-600" />,
             trend: "+23",
             trendType: "up",
-            graphData: [20, 30, 25, 40, 35, 50, 60],
+            graphData: [40, 30, 25, 40, 35, 50, 60],
         },
     ];
 
@@ -112,7 +112,7 @@ const SellerMainDashSection = () => {
     };
 
     return (
-        <div className="bg-gray-100 min-h-screen">
+        <div className="bg-gray-100 min-h-screen ml-[25vw]">
             {/* Header - Not included in the component but shown in the image */}
             <div className="bg-white shadow-sm mb-4">
                 <div className="container mx-auto flex items-center justify-between px-6 py-3">
