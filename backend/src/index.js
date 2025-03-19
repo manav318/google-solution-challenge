@@ -49,6 +49,20 @@ app.get("/api/get-role/:uid", async(req,res)=>{
     }
 })
 
+app.get("/api/get-uid",async(req,res)=>{
+    const sessionCookie = req.cookies.loginToken || ""; // Retrieve session cookie from client
+
+    try {
+        // Verify the session cookie and decode the claims
+        const decodedClaims = await admin.auth().verifySessionCookie(sessionCookie, true); // Enforce revocation check
+        const uid = decodedClaims.uid; // Extract UID from the token
+        res.status(200).send({ uid });
+    } catch (error) {
+        console.error("Error verifying session cookie:", error.message);
+        res.status(401).send({ message: "Unauthorized. Invalid session cookie." });
+}
+})
+
 app.listen(port,()=>{
     console.log(`Listening at Port: ${port}`)
 })
