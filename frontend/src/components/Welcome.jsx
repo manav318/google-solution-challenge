@@ -2,7 +2,7 @@ import React from "react";
 import WavesBackground from "../components/WavesBackground.jsx"
 const  Welcome= () => {
     return (  
-        <div className="w-screen bg-slate-400 m-0 h-[690px] relative">
+        <div className="w-screen bg-slate-400 m-0 h-[98vh] relative">
         {/* <img src="/pics/waves.png" alt="" className="w-full h-full object-cover" /> */}
         <div >
             <WavesBackground />

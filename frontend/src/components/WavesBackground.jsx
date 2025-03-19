@@ -10,10 +10,10 @@ const WavyBackground = ({
   colors,
   waveWidth,
   backgroundFill,
-  blur = 5,
+  blur = 7,
   speed = "fast",
   waveOpacity = 0.5,
-  positions = [0.1, 0.3,0.5  ,0.7, 0.9], // Default positions for waves
+  positions = [0.1,0.2, 0.3,0.4,0.5,0.6,0.7,0.8, 0.9,0.95, 0.99], // Default positions for waves
   ...props
 }) => {
   const noise = createNoise3D();
@@ -50,11 +50,18 @@ const WavyBackground = ({
   };
 
   const waveColors = colors ?? [
-    "#38bdf8",
-    "#818cf8",
-    "#c084fc",
-    "#e879f9",
-    "#22d3ee",
+"#dbeafe",  /* blue-100 */
+"#bfdbfe",  /* blue-200 */
+"#93c5fd",  /* blue-300 */
+"#60a5fa",  /* blue-400 */
+"#3b82f6",  /* blue-500 */
+"#2563eb",  /* blue-600 */
+"#1d4ed8",  /* blue-700 */
+"#1e40af",  /* blue-800 */
+"#1e3a8a" ,  /* blue-900 */
+"#1e3a8a" ,  /* blue-900 */
+"#1e3a8a" ,  /* blue-900 */
+"#1e3a8a"   /* blue-900 */
   ];
 
   const drawWave = (n) => {
@@ -64,7 +71,7 @@ const WavyBackground = ({
       ctx.lineWidth = waveWidth || 200;
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
-        const y = noise(x / 800, 0.3 * i, nt) * 100;
+        const y = noise(x / 800, 0.3 * i, nt) * 50;
         const position = positions[i % positions.length]; // Use the position prop
         ctx.lineTo(x, y + h * position); // Apply the position
       }
@@ -75,7 +82,7 @@ const WavyBackground = ({
 
   const render = () => {
     ctx.fillStyle = backgroundFill || "white";
-    ctx.globalAlpha = waveOpacity || 0.5;
+    ctx.globalAlpha = waveOpacity || 0.7;
     ctx.fillRect(0, 0, w, h);
     drawWave(positions.length); // Draw waves based on the number of positions
 
