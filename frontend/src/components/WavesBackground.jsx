@@ -49,9 +49,9 @@ const WavyBackground = ({
   };
 
   const waveColors = colors ?? [
-    "#dbeafe", /* blue-100 */
-    "#bfdbfe", /* blue-200 */
     "#93c5fd", /* blue-300 */
+    "#93c5fd", /* blue-300 */
+    "#60a5fa", /* blue-400 */
     "#60a5fa", /* blue-400 */
     "#3b82f6", /* blue-500 */
     "#2563eb", /* blue-600 */
