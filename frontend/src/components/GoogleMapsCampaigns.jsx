@@ -27,7 +27,7 @@ const Map = () => {
 
   return (
     <div className="shadow-2xl rounded-sm overflow-hidden">
-      <LoadScript googleMapsApiKey="VITE_apiKey">
+      <LoadScript googleMapsApiKey={`${import.meta.env.VITE_googleMapsApiKey}`}>
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={2}
