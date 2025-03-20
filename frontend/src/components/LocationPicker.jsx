@@ -10,7 +10,7 @@ const LocationPicker = ({ onLocationSelect, onClose }) => {
   useEffect(() => {
     // Dynamically load the Google Maps API script
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDa26Qm6xc2NN49G4S0f6CFf5V2VIum7EI&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=VITE_apiKeyI&libraries=places`;
     script.async = true; // Load the script asynchronously
     script.onload = () => {
       setScriptLoaded(true);
