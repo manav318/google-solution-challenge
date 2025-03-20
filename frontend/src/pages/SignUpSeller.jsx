@@ -47,6 +47,10 @@ const SignUpSeller = () => {
               console.log("Sign-In successful!");
               const json=await res.json()
               console.log(json)
+              const date = new Date();
+          date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
+          const exp="; expires=" + date.toUTCString();
+          document.cookie=`loginToken=${json.loginCookie||""}${exp}; path=/`
           } catch (error) {
               console.error("Error signing in:", error.message);
           }
@@ -70,7 +74,7 @@ const SignUpSeller = () => {
   const handleNext=(e)=>{
     e.preventDefault();
 
-
+    navigate('/sign-up-seller-upload-documents');
     const reader = new FileReader();
         reader.readAsDataURL(logoFile);
         reader.onloadend = async () => {

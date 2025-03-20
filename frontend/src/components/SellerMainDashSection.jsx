@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaShoppingCart, FaDollarSign, FaBox, FaEllipsisV, FaChevronUp } from "react-icons/fa";
 
 const SellerMainDashSection = () => {
     // Top row analytics cards data
+    
+
+    
+
+   
+
     const analyticsData = [
         {
             id: 1,
@@ -112,7 +118,7 @@ const SellerMainDashSection = () => {
     };
 
     return (
-        <div className="bg-gray-100 min-h-screen ml-[25vw]">
+        <div className="bg-gray-100 min-h-screen ml-[25vw]" >
             {/* Header - Not included in the component but shown in the image */}
             <div className="bg-white shadow-sm mb-4">
                 <div className="container mx-auto flex items-center justify-between px-6 py-3">

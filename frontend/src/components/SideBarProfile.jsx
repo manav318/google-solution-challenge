@@ -1,19 +1,32 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUserEdit, FaCog, FaUserCircle, FaSun, FaMoon, FaSignOutAlt, FaLock } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 const SideBarProfile = () => {
     const [isDarkTheme, setIsDarkTheme] = useState(false); // State for theme toggle
-    const navigate=useNavigate()
+    const navigate = useNavigate();
+
+    // Load theme from localStorage on component mount
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            setIsDarkTheme(true);
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, []);
+
     // Function to toggle between light and dark themes
     const toggleTheme = () => {
-        setIsDarkTheme((prev) => !prev);
-        // Apply the theme change to the entire app (you can customize this part)
-        if (isDarkTheme) {
-            document.documentElement.classList.remove("dark");
-        } else {
+        const newTheme = !isDarkTheme;
+        setIsDarkTheme(newTheme);
+        if (newTheme) {
             document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
         }
     };
 
