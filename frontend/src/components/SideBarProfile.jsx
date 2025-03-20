@@ -33,12 +33,13 @@ const SideBarProfile = () => {
     // Function to handle logout
     const handleLogout =async () => {
         // Add your logout logic here
-        await fetch("http:localhost:7000/api/auth/logout",{
+        await fetch("http://localhost:7000/api/auth/logout",{
             method: "POST",
             headers: { "Content-Type": "application/json" },
             
         });
         document.cookie = "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie="sellerID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
         navigate("/")
         console.log("User logged out");
     };
