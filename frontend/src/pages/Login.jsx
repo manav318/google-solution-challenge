@@ -50,7 +50,7 @@ const Login = () => {
           const date = new Date();
           date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
           const exp="; expires=" + date.toUTCString();
-          document.cookie=`loginToken=${json.loginCookie||""}${exp}; path=/`
+          document.cookie=`loginToken=${json.loginCookie||""}${exp}; path=/;`
           const details=await fetch(`http://localhost:7000/api/get-role/${uid}`)
           const detailsjson=await details.json()
           const role=detailsjson.role
