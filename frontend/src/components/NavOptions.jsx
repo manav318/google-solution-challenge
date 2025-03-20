@@ -29,6 +29,7 @@ const options = () => {
             >
                 Campaigns
             </Link>
+            if(loggedinTokken===false){
             <Link
                 to="/login"
                 className="w-32 py-1 text-center cursor-pointer hover:scale-105"
@@ -36,6 +37,15 @@ const options = () => {
             >
                 Register
             </Link>
+}
+else{
+            <Link
+                to="/Profile"
+                className="w-32 py-1 text-center cursor-pointer hover:scale-105"
+                onClick={() => setClickedLink("login")}
+            >
+                Profile
+            </Link>}
             {/* <Link
                 to="/sign-up-redirect"
                 className="w-32 py-1 text-center cursor-pointer hover:scale-105"
