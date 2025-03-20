@@ -19,16 +19,14 @@ import ProductPage from "./pages/ProductPage.jsx"
 import UserDashboard from "./pages/UserDashboard.jsx";
 import SellerDashboard from "./pages/SellerDashboard.jsx";
 import UploadProducts from "./pages/UploadProducts.jsx";
+import Navbar from "./components/NavBar.jsx";
 // import "@fontsource/aclonica";
 const App = () => {
   
   return (
     <>
-      <nav className="fixed h-[6vh] top-0 left-0 flex items-center justify-between bg-gray-700 bg-opacity-80 font-semibold w-full z-50 drop-shadow-2xl">
-        <Logo />
-        <NavOptions />
-      </nav>
 
+      <Navbar/>
       <div className="m-0 overflow-y-auto">
         <Routes>
           <Route path="/" element={<HomePage />} />
