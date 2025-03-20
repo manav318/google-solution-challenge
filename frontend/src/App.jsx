@@ -48,6 +48,7 @@ const App = () => {
           <Route path="/seller-upload-product" element={<UploadProducts/>} />
         </Routes>
       </div>
+      
     </>
   );
 }
