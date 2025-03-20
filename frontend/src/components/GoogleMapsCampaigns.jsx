@@ -27,7 +27,7 @@ const Map = () => {
 
   return (
     <div className="shadow-2xl rounded-sm overflow-hidden">
-      <LoadScript googleMapsApiKey="AIzaSyDa26Qm6xc2NN49G4S0f6CFf5V2VIum7EI">
+      <LoadScript googleMapsApiKey="VITE_apiKey">
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={2}
