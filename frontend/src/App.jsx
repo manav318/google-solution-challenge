@@ -25,12 +25,6 @@ const App = () => {
   
   return (
     <>
-    
-      <nav className="fixed h-[6vh] top-0 left-0 flex items-center justify-between bg-gray-700 bg-opacity-80 font-semibold w-full z-50 drop-shadow-2xl">
-        <Logo />
-        <NavOptions />
-      </nav>
-
       <Navbar/>
       <div className="m-0 overflow-y-auto">
         <Routes>
