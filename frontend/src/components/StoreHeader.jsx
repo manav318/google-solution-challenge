@@ -12,4 +12,4 @@ const WomenSection = () => {
   );
 };
 
-export default WomenSection;
+export default WomenSection;
