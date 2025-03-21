@@ -26,9 +26,6 @@ const options = () => {
 
     const componentConditional=()=>{
         if(!loggedinToken)
-            
-
-        if(!loggedinToken)
             return (<Link
                     to="/login"
                     className="w-auto py-1 text-center cursor-pointer hover:scale-105 mr-[2vw]"
@@ -74,14 +71,6 @@ const options = () => {
                 Campaigns
             </Link>
             {componentConditional(loggedinToken)}
-            
-            {/* <Link
-                to="/sign-up-redirect"
-                className="w-auto py-1 text-center cursor-pointer hover:scale-105"
-                onClick={() => setClickedLink("signup")}
-            >
-                Sign Up
-            </Link> */}
         </div>
     )
 }
