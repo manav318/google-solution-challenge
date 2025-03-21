@@ -74,14 +74,6 @@ const options = () => {
                 Campaigns
             </Link>
             {componentConditional(loggedinToken)}
-            
-            {/* <Link
-                to="/sign-up-redirect"
-                className="w-auto py-1 text-center cursor-pointer hover:scale-105"
-                onClick={() => setClickedLink("signup")}
-            >
-                Sign Up
-            </Link> */}
         </div>
     )
 }
