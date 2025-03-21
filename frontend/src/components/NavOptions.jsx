@@ -31,7 +31,7 @@ const options = () => {
         if(!loggedinToken)
             return (<Link
                     to="/login"
-                    className="w-32 py-1 text-center cursor-pointer hover:scale-105"
+                    className="w-auto py-1 text-center cursor-pointer hover:scale-105 mr-[2vw]"
                     onClick={() => setClickedLink("login")}
                     >
                         Register
@@ -39,7 +39,7 @@ const options = () => {
         else
             return (<Link
                     to="/Profile"
-                    className="w-32 py-1 text-center cursor-pointer hover:scale-105"
+                    className="w-auto py-1 text-center cursor-pointer hover:scale-105 mr-[2vw]"
                     onClick={() => setClickedLink("login")}
                     >
                         Profile
@@ -48,7 +48,7 @@ const options = () => {
     } 
 
     return (
-        <div className='absolute text-white font-semibold flex items-center justify-between gap-1 text-xl right-1 bottom-1' key={location.pathname}>
+        <div className='absolute text-white font-semibold flex items-center justify-between gap-[3vw] text-xl right-1 bottom-1' key={location.pathname}>
             <Link
                 to="/"
                 className="w-auto py-1 text-center cursor-pointer hover:scale-105"
