@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import {
@@ -14,7 +14,6 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import {
@@ -264,8 +263,7 @@ export function ChartAreaInteractive() {
                 tickMargin={8}
                 tickFormatter={(value) => `${value}`}
               />
-              <ChartTooltip
-                cursor={false}
+              <Tooltip
                 content={
                   <ChartTooltipContent
                     labelFormatter={(value) => {
@@ -277,6 +275,11 @@ export function ChartAreaInteractive() {
                     indicator="dot"
                   />
                 }
+                cursor={{
+                  stroke: 'var(--border)',
+                  strokeWidth: 1,
+                  strokeDasharray: "4 4"
+                }}
               />
               <Area
                 dataKey="mobile"

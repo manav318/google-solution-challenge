@@ -57,13 +57,13 @@ const tooltipStyles = cva(
   }
 )
 
-const ChartTooltip = ({ children, className, ...props }) => {
+const ChartTooltip = ({ children, content, className, ...props }) => {
   return (
     <div
       className={cn(tooltipStyles({ className }))}
       {...props}
     >
-      {children}
+      {content || children}
     </div>
   )
 }
@@ -72,8 +72,8 @@ const ChartTooltipContent = ({ active, payload, label, indicator = "line" }) => 
   if (!active || !payload?.length) return null
 
   return (
-    <div className="flex flex-col gap-1">
-      <div className="text-xs font-medium text-muted-foreground">{label}</div>
+    <div className="flex flex-col gap-1 bg-white dark:bg-gray-800 p-2 border rounded-lg shadow-lg">
+      <div className="text-xs font-medium text-muted-foreground border-b pb-1">{label}</div>
       <div className="flex flex-col gap-0.5">
         {payload.map((item, i) => (
           <div key={i} className="flex items-center gap-1">
@@ -84,11 +84,11 @@ const ChartTooltipContent = ({ active, payload, label, indicator = "line" }) => 
               />
             ) : (
               <div
-                className="size-2 rounded-full"
+                className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: item.color }}
               />
             )}
-            <span className="font-medium">{item.value}</span>
+            <span className="font-medium text-foreground">{item.value}</span>
             <span className="text-muted-foreground">{item.name}</span>
           </div>
         ))}
