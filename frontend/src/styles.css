@@ -59,6 +59,8 @@ body {
 
 @layer base {
   :root {
+    --color-desktop: hsl(220, 100%, 50%);
+    --color-mobile: hsl(120, 100%, 50%);
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
