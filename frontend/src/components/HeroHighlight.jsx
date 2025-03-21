@@ -1,30 +1,64 @@
 "use client";
 import { motion } from "motion/react";
 import { HeroHighlight, Highlight } from "../ui/hero-highlight";
+import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
 
 export function HeroHighlightDemo() {
+  const words1 = [
+    {
+      text: "GENUITY",
+      className: "text-yellow-500 dark:text-yellow-500",
+    },
+  ];
+
+  const words2 = [
+    {
+      text: "Hope,",
+    },
+    {
+      text: "Help,",
+    },
+    {
+      text: "and",
+    },
+    {
+      text: "a",
+    },
+    {
+      text: "Future",
+    },
+    {
+      text: "for",
+    },
+    {
+      text: "All!",
+      className: "text-yellow-500 dark:text-yellow-500",
+    },
+  ];
+
+  const words3 = [
+    {
+      text: "Equality",
+    },
+    {
+      text: "Empowers,",
+    },
+    {
+      text: "Poverty",
+    },
+    {
+      text: "Disappears!",
+      className: "text-yellow-500 dark:text-yellow-500",
+    },
+  ];
+
   return (
     <HeroHighlight>
-      <motion.h1
-        initial={{
-          opacity: 0,
-          y: 20,
-        }}
-        animate={{
-          opacity: 1,
-          y: [20, -5, 0],
-        }}
-        transition={{
-          duration: 0.5,
-          ease: [0.4, 0.0, 0.2, 1],
-        }}
-        className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto ">
-        With insomnia, nothing&apos;s real. Everything is far away. Everything
-        is a{" "}
-        <Highlight className="text-black dark:text-white">
-          copy, of a copy, of a copy.
-        </Highlight>
-      </motion.h1>
+      <div className="flex flex-col gap-6 text-center">
+        <TypewriterEffectSmooth words={words1} />
+        <TypewriterEffectSmooth words={words2} />
+        <TypewriterEffectSmooth words={words3} />
+      </div>
     </HeroHighlight>
   );
 }
