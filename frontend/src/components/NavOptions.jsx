@@ -9,7 +9,6 @@ const options = () => {
     const location=useLocation()
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
-        console.log("VALUE: ",value)
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(";").shift();
         return null;
@@ -21,12 +20,12 @@ const options = () => {
             setDashboard("/dashboard-user")
         else   
             setDashboard("/dashboard-seller")
-        console.log("navbar : ",loginToken)
+        //console.log("navbar : ",loginToken)
         if(loginToken==null)
             setLoggedInToken(false)
         else
             setLoggedInToken(true)
-        console.log("Login Token:", loginToken);
+        //console.log("Login Token:", loginToken);
     }
     )
 
