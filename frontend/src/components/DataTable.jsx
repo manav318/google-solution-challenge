@@ -395,7 +395,7 @@ export function DataTable({ data: initialData }) {
   return (
     <Tabs
       defaultValue="outline"
-      className="flex w-full flex-col justify-start gap-6"
+      className="flex w-full flex-col justify-start gap-6 mt-[10vh]"
     >
       <div className="flex items-center justify-between px-4 lg:px-6">
         <Label htmlFor="view-selector" className="sr-only">
