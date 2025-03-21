@@ -27,7 +27,7 @@ const WavyBackground = ({
       case "slow":
         return 0.001;
       case "fast":
-        return 0.002;
+        return 0.003;
       default:
         return 0.001;
     }
