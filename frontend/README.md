@@ -1,6 +1,160 @@
-# Google Solution Challenge
+# Frontend Service - Google Solution Challenge
 
-This repository contains the frontend code for the Google Solution Challenge project. The project includes several pages for user and seller sign-up, login, and document upload functionalities.
+## Overview
+A React-based frontend application built with Vite that provides user interfaces for sellers and customers. Features include authentication, seller dashboards, product management, and interactive data visualization.
+
+## Prerequisites
+- Node.js v14 or higher
+- npm or yarn package manager
+- Modern web browser
+- Firebase account
+- Cloudinary account (for image uploads)
+
+## Installation Steps
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create `.env` file:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Start development server:
+   ```bash
+   npm run dev
+   ```
+
+## Environment Variables
+```env
+VITE_apiKey=your_firebase_api_key
+VITE_authDomain=your_firebase_auth_domain
+VITE_projectID=your_firebase_project_id
+VITE_storageBucket=your_firebase_storage_bucket
+VITE_messagingSenderId=your_firebase_messaging_sender_id
+VITE_appID=your_firebase_app_id
+VITE_BACKEND_URL=http://localhost:7000
+```
+
+## Project Structure
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── Avatar.jsx
+│   │   │   ├── Button.jsx
+│   │   │   ├── Card.jsx
+│   │   │   ├── Checkbox.jsx
+│   │   │   ├── Dialog.jsx
+│   │   │   ├── Dropdown.jsx
+│   │   │   ├── Input.jsx
+│   │   │   ├── Loading.jsx
+│   │   │   ├── Modal.jsx
+│   │   │   ├── Select.jsx
+│   │   │   ├── Table.jsx
+│   │   │   └── Toast.jsx
+│   │   ├── forms/
+│   │   │   ├── LoginForm.jsx
+│   │   │   ├── ProductForm.jsx
+│   │   │   ├── RegisterForm.jsx
+│   │   │   ├── SearchForm.jsx
+│   │   │   └── ValidationSchema.js
+│   │   ├── layouts/
+│   │   │   ├── DashboardLayout.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Header.jsx
+│   │   │   ├── MainLayout.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   └── Sidebar.jsx
+│   │   └── features/
+│   │       ├── cart/
+│   │       │   ├── CartItem.jsx
+│   │       │   └── CartSummary.jsx
+│   │       ├── products/
+│   │       │   ├── ProductCard.jsx
+│   │       │   ├── ProductGrid.jsx
+│   │       │   └── ProductFilters.jsx
+│   │       └── dashboard/
+│   │           ├── AnalyticsChart.jsx
+│   │           ├── RevenueWidget.jsx
+│   │           └── StatisticsCard.jsx
+│   ├── pages/
+│   │   ├── CampaignDashboard.jsx
+│   │   ├── CreateCampaign.jsx
+│   │   ├── CustomerCare.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── Login.jsx
+│   │   ├── ProductPage.jsx
+│   │   ├── SellerDashboard.jsx
+│   │   ├── SignUpRedirect.jsx
+│   │   ├── SignUpSeller.jsx
+│   │   ├── SignUpSellerUploadDocuments.jsx
+│   │   ├── SignUpUser.jsx
+│   │   ├── Store.jsx
+│   │   ├── Support.jsx
+│   │   ├── TermsAndCondition.jsx
+│   │   ├── UploadProducts.jsx
+│   │   └── UserDashboard.jsx
+│   ├── hooks/
+│   │   ├── useAuth.js
+│   │   ├── useCart.js
+│   │   ├── useMobile.js
+│   │   ├── useProducts.js
+│   │   └── useUser.js
+│   ├── lib/
+│   │   ├── api.js
+│   │   ├── constants.js
+│   │   ├── firebase.js
+│   │   ├── helpers.js
+│   │   └── utils.js
+│   ├── styles/
+│   │   ├── components/
+│   │   │   ├── button.css
+│   │   │   └── form.css
+│   │   ├── pages/
+│   │   │   ├── dashboard.css
+│   │   │   └── store.css
+│   │   ├── globals.css
+│   │   └── variables.css
+│   ├── services/
+│   │   ├── auth.service.js
+│   │   ├── campaign.service.js
+│   │   ├── product.service.js
+│   │   └── user.service.js
+│   ├── context/
+│   │   ├── AuthContext.jsx
+│   │   ├── CartContext.jsx
+│   │   ├── ThemeContext.jsx
+│   │   └── UserContext.jsx
+│   ├── assets/
+│   │   ├── images/
+│   │   └── icons/
+│   └── App.jsx
+├── public/
+│   ├── favicon.ico
+│   ├── manifest.json
+│   ├── robots.txt
+│   └── index.html
+├── tests/
+│   ├── components/
+│   ├── pages/
+│   └── utils/
+├── .env
+├── .env.example
+├── .gitignore
+├── package.json
+├── README.md
+├── tsconfig.json
+└── vite.config.js
+```
 
 ## Pages
 
@@ -206,6 +360,102 @@ This page allows sellers to add and manage their product listings.
 - SEO optimization fields
 - Draft and publish functionality
 
+## Development Guide
+
+### Code Style
+We follow the Airbnb JavaScript Style Guide. Run lint checks:
+```bash
+npm run lint
+npm run lint:fix
+```
+
+### Testing
+Run unit tests:
+```bash
+npm test
+npm run test:coverage
+```
+
+### Building for Production
+```bash
+npm run build
+npm run preview
+```
+
+## API Integration
+
+### Backend Endpoints
+```typescript
+const API = {
+  AUTH: {
+    LOGIN: '/api/auth/login',
+    SIGNUP: '/api/auth/signup',
+    VERIFY: '/api/auth/verify',
+  },
+  PRODUCTS: {
+    LIST: '/api/products',
+    DETAIL: (id: string) => `/api/products/${id}`,
+    CREATE: '/api/products/create',
+  },
+  // Add more endpoints...
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Firebase Authentication Issues**
+   ```bash
+   # Clear browser cache and local storage
+   # Check .env configuration
+   # Verify Firebase console settings
+   ```
+
+2. **Build Errors**
+   ```bash
+   # Clear node_modules and package-lock.json
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
+
+## Deployment
+
+### Production Deployment
+```bash
+# Build the application
+npm run build
+
+# Deploy to hosting service
+npm run deploy
+```
+
+### Environment Configuration
+```bash
+# Production
+NODE_ENV=production
+VITE_API_URL=https://api.production.com
+
+# Staging
+NODE_ENV=staging
+VITE_API_URL=https://api.staging.com
+```
+
+## Performance Optimization
+
+- Image optimization using next/image
+- Code splitting and lazy loading
+- Memoization of expensive computations
+- Service Worker for offline functionality
+
+## Contributing
+
+1. Fork the repository
+2. Create feature branch
+3. Commit changes
+4. Push to branch
+5. Create Pull Request
+
 ## How to Run
 
 1. Clone the repository.
@@ -280,7 +530,3 @@ const handleSubmit = async (e) => {
   console.log(json);
 };
 ```
-
-## License
-
-This project is licensed under the MIT License.
