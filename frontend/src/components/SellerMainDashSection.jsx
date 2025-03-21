@@ -9,7 +9,6 @@ import data from "../../data.json";
 
 export default function Page() {
   return (
-    
      <SidebarProvider>
        <AppSidebar variant="inset" />
        <SidebarInset>

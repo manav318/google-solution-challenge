@@ -6,7 +6,7 @@ const  SellerDashboard= () => {
     
     return (  
         <div className="mt-[6vh] h-[94vh] flex justify-between">
-            <SideBarProfile/>
+            {/* <SideBarProfile/> */}
             <SellerMainDashSection />
         </div>
     );
