@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 const options = () => {
     const [clickedLink, setClickedLink] = useState("");
     const [loggedinToken,setLoggedInToken]=useState(false)
+    const [dashboard,setDashboard]=useState("")
     const location=useLocation()
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
@@ -15,6 +16,11 @@ const options = () => {
     };
     useEffect(() => {
         const loginToken = getCookie("loginToken"); // Replace "loginToken" with the actual cookie name
+        const sellerID=getCookie("sellerID")
+        if(sellerID==null)
+            setDashboard("/dashboard-user")
+        else   
+            setDashboard("/dashboard-seller")
         console.log("navbar : ",loginToken)
         if(loginToken==null)
             setLoggedInToken(false)
@@ -38,7 +44,7 @@ const options = () => {
                     </Link>)
         else
             return (<Link
-                    to="/Profile"
+                    to={dashboard}
                     className="w-auto py-1 text-center cursor-pointer hover:scale-105 mr-[2vw]"
                     onClick={() => setClickedLink("login")}
                     >
