@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+"use client";
+import { TypewriterEffectSmoothDemo } from "./TypeWriterEffect";
 import { HeroHighlight } from "./ui/hero-highlight";
 
 const WomenSection = () => {
-  
   return (
-    <div className="flex h-[30vh] w-[90vw] mx-auto relative overflow-hidden rounded-xl shadow-md">
-      <HeroHighlight/>
-    </div>
+    <HeroHighlight containerClassName="rounded-xl mx-auto w-[90vw]">
+      <div className="flex flex-col items-center justify-center h-full w-full">
+        <TypewriterEffectSmoothDemo />
+      </div>
+    </HeroHighlight>
   );
 };
 
