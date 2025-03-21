@@ -11,5 +11,5 @@ export function HeroHighlightDemo() {
       <div className="flex flex-col gap-6 text-center">
       </div>
     </HeroHighlight>
-  );
+  );
 }

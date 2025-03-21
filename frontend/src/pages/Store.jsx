@@ -300,9 +300,9 @@ const Store = () => {
         clearFilters={clearFilters}
       />
 
-      {/* Main Content Section */}
+      {/* Main Store Section */}
       <div className="main-content flex mt-[2vh] relative">
-        {/* Right Section - Main Content */}
+        {/* product grid Content */}
         <div className="right-section flex-1 p-2 relative">
           {/* Product Grid */}
           <div className="product-grid grid grid-cols-4 gap-5">
