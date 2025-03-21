@@ -3,6 +3,7 @@ import { useVirtual } from 'react-virtual';
 import StoreHeader from "../components/StoreHeader.jsx";
 import SubHeader from "../components/SubHeader.jsx"; // Import SubHeader
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa"; // Icons for search, cart, and profile
+import ProductCard from "@/components/ProductCard.jsx";
 
 const Store = () => {
   const [priceRange, setPriceRange] = useState([0, 1000]); // [min, max]
@@ -32,7 +33,7 @@ const Store = () => {
       category: "Handicrafts",
       price: 15,
       rating: 4.7,
-      image: "pics/bamboo1.jpg",
+      image: "/pics/bamboo1.jpg",
       boughtLastMonth: 50,
     },
     {
@@ -41,7 +42,7 @@ const Store = () => {
       category: "Art",
       price: 45,
       rating: 4.5,
-      image: "pics/art1.jpg",
+      image: "/pics/art1.jpg",
       boughtLastMonth: 30,
     },
     {
@@ -50,7 +51,7 @@ const Store = () => {
       category: "Spices",
       price: 8,
       rating: 4.6,
-      image: "pics/turmeric1.jpg",
+      image: "/pics/turmeric1.jpg",
       boughtLastMonth: 120,
     },
     {
@@ -59,7 +60,7 @@ const Store = () => {
       category: "Jewelry",
       price: 20,
       rating: 4.4,
-      image: "pics/bead.jpg",
+      image: "/pics/bead.jpg",
       boughtLastMonth: 80,
     },
     {
@@ -68,7 +69,7 @@ const Store = () => {
       category: "Clothing",
       price: 35,
       rating: 4.8,
-      image: "pics/shawl1.jpg",
+      image: "/pics/shawl1.jpg",
       boughtLastMonth: 60,
     },
     {
@@ -77,7 +78,7 @@ const Store = () => {
       category: "Handicrafts",
       price: 12,
       rating: 4.3,
-      image: "pics/mug1.jpg",
+      image: "/pics/mug1.jpg",
       boughtLastMonth: 90,
     },
     {
@@ -86,7 +87,7 @@ const Store = () => {
       category: "Spices",
       price: 10,
       rating: 4.7,
-      image: "pics/stick2.jpg",
+      image: "/pics/stick2.jpg",
       boughtLastMonth: 100,
     },
     {
@@ -95,7 +96,7 @@ const Store = () => {
       category: "Toys",
       price: 18,
       rating: 4.6,
-      image: "pics/toy1.jpg",
+      image: "/pics/toy1.jpg",
       boughtLastMonth: 40,
     },
     {
@@ -104,7 +105,7 @@ const Store = () => {
       category: "Personal Care",
       price: 5,
       rating: 4.5,
-      image: "pics/soap1.jpg",
+      image: "/pics/soap1.jpg",
       boughtLastMonth: 150,
     },
     {
@@ -113,7 +114,7 @@ const Store = () => {
       category: "Accessories",
       price: 25,
       rating: 4.4,
-      image: "pics/jute_bag2.jpg",
+      image: "/pics/jute_bag2.jpg",
       boughtLastMonth: 70,
     },
     {
@@ -122,7 +123,7 @@ const Store = () => {
       category: "Books",
       price: 10,
       rating: 4.2,
-      image: "pics/book2.jpg",
+      image: "/pics/book2.jpg",
       boughtLastMonth: 55,
     },
     {
@@ -131,7 +132,7 @@ const Store = () => {
       category: "Wellness",
       price: 6,
       rating: 4.3,
-      image: "pics/stick1.jpg",
+      image: "/pics/stick1.jpg",
       boughtLastMonth: 200,
     },
     {
@@ -140,7 +141,7 @@ const Store = () => {
       category: "Handicrafts",
       price: 20,
       rating: 4.6,
-      image: "pics/clay_pot1.jpg",
+      image: "/pics/clay_pot1.jpg",
       boughtLastMonth: 65,
     },
     {
@@ -149,7 +150,7 @@ const Store = () => {
       category: "Food",
       price: 12,
       rating: 4.8,
-      image: "pics/honey1.jpg",
+      image: "/pics/honey1.jpg",
       boughtLastMonth: 180,
     },
     {
@@ -158,7 +159,7 @@ const Store = () => {
       category: "Clothing",
       price: 40,
       rating: 4.7,
-      image: "pics/shawl1.jpg",
+      image: "/pics/shawl1.jpg",
       boughtLastMonth: 45,
     },
   ];
@@ -306,28 +307,11 @@ const Store = () => {
           {/* Product Grid */}
           <div className="product-grid grid grid-cols-4 gap-5">
             {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="product-card border p-2 rounded-lg shadow-lg cursor-pointer"              >
-                <img
-                  data-src={product.image}
-                  alt={product.name}
-                  className="w-full h-72 object-cover rounded-lg"
-                  loading="lazy"
-                  ref={(el) => el && imageObserver.observe(el)}
+                <ProductCard 
+                  key={product.id}
+                  product={product}
+                  imageObserver={imageObserver}
                 />
-                <div className="flex justify-between mt-2">
-                  <div>
-                    <h4 className="m-0">{product.name}</h4>
-                    <p className="m-0">${product.price}</p>
-                  </div>
-                  <p className="m-0 text-gray-600">{product.category}</p>
-                </div>
-                <div className="flex justify-between items-center mt-2">
-                  {renderStarRating(product.rating)}
-                  <p className="m-0">{product.boughtLastMonth} bought</p>
-                </div>
-              </div>
             ))}
           </div>
         </div>
