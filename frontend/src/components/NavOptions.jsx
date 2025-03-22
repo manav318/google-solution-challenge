@@ -8,7 +8,6 @@ const Options = () => {
   const [loggedinToken, setLoggedInToken] = useState(false);
   const [dashboard, setDashboard] = useState("");
   const location = useLocation();
-
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -17,26 +16,31 @@ const Options = () => {
   };
 
   useEffect(() => {
+      
     const loginToken = getCookie("loginToken"); // Replace "loginToken" with the actual cookie name
     const sellerID = getCookie("sellerID");
     if (sellerID == null) setDashboard("/dashboard-user");
     else setDashboard("/dashboard-seller");
 
-    if (loginToken == null) setLoggedInToken(false);
-    else setLoggedInToken(true);
-  }, []);
+    setLoggedInToken(!!loginToken);
+  }, [location]);
+
+  
+
+  
 
   const renderProfileOrRegister = () => {
+    
     if (!loggedinToken) {
       return (
-        <li className="relative list-none w-[4.5vh] h-[4.5vh] bg-white shadow-lg rounded-full cursor-pointer flex justify-center items-center transition-all duration-500 hover:w-40 group hover:bg-gradient-to-tr from-blue-200 to-blue-600">
+        <li  className="relative list-none w-[4.5vh] h-[4.5vh] bg-white shadow-lg rounded-full cursor-pointer flex justify-center items-center transition-all duration-500 hover:w-40 group hover:bg-gradient-to-tr from-blue-200 to-blue-600">
           <Link
             to="/login"
             className="w-full h-full flex justify-center items-center"
             onClick={() => setClickedLink("login")}
           >
-            <IoPerson className="text-gray-500 text-xl transition-all duration-500 group-hover:scale-0 group-hover:opacity-0" />
-            <span className="absolute text-white text-sm font-semibold uppercase opacity-0 transform scale-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+            <IoPerson  className="text-gray-500 text-xl transition-all duration-500 group-hover:scale-0 group-hover:opacity-0" />
+            <span key={location.pathname} className="absolute text-white text-sm font-semibold uppercase opacity-0 transform scale-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
               Register
             </span>
           </Link>
@@ -44,14 +48,15 @@ const Options = () => {
       );
     } else {
       return (
-        <li className="relative list-none w-[4.5vh] h-[4.5vh] bg-white shadow-lg rounded-full cursor-pointer flex justify-center items-center transition-all duration-500 hover:w-40 group hover:bg-gradient-to-tr from-blue-200 to-blue-600">
+        <li  className="relative list-none w-[4.5vh] h-[4.5vh] bg-white shadow-lg rounded-full cursor-pointer flex justify-center items-center transition-all duration-500 hover:w-40 group hover:bg-gradient-to-tr from-blue-200 to-blue-600">
           <Link
             to={dashboard}
             className="w-full h-full flex justify-center items-center"
             onClick={() => setClickedLink("login")}
+            
           >
             <IoPerson className="text-gray-500 text-xl transition-all duration-500 group-hover:scale-0 group-hover:opacity-0" />
-            <span className="absolute text-white text-sm font-semibold uppercase opacity-0 transform scale-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+            <span key={location.pathname} className="absolute text-white text-sm font-semibold uppercase opacity-0 transform scale-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
               Profile
             </span>
           </Link>
