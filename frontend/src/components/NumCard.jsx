@@ -39,7 +39,7 @@ const Card = () => {
             className="w-full h-[24.75vh] mb-[0.1vh] text-white font-semibold text-xl bg-gray-900 relative"
           >
             <h2 className="font-led text-2xl absolute top-[2vh] left-[1vw]">{title}</h2>
-            <div className="text-7xl text-sky-500 absolute bottom-[4vh] right-[2vw] flex space-x-2">
+            <div className="text-7xl text-sky-500 absolute bottom-[4vh] right-[2vw] flex space-x-2 font-dotgothic">
               {numbers[index].map((digit, i) => (
                 <div
                   key={i}
