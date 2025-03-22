@@ -21,7 +21,8 @@ export default {
   			water: [
   				'Water Special',
   				'cursive'
-  			]
+  			],
+
   		},
   		backgroundImage: {
   			'gradient-custom': 'linear-gradient(to bottom, #0c1e4a, #3264a8)'
