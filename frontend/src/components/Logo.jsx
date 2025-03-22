@@ -2,7 +2,9 @@ import React from "react";
 
 const Logo = () => {
     return (  
-        <div className="flex items-center justify-between ">
+        <div className="flex items-center justify-between cursor-pointer "
+        onClick={()=>{window.location='/creators';}}
+        >
             <img 
             className="h-[5vh]"
              src='/logosvg1.svg' alt="logo" />
