@@ -3,7 +3,7 @@ const db = admin.firestore();
 
 const authRoutes=require("./routes/auth.route")
 const sellerRoutes=require("./routes/seller.route")
-
+const productRoutes=require("./routes/product.route")
 
 const express = require('express');
 const bodyParser=require('body-parser');
@@ -30,6 +30,7 @@ app.use(bodyParser.json())
 app.use(cors(corsOptions)) 
 app.use("/api/auth",authRoutes)
 app.use("/api/upload",sellerRoutes)
+app.use("/api/products",productRoutes)
 app.get("/api/get-role/:uid", async(req,res)=>{
     const {uid}=req.params
     try {
