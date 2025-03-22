@@ -50,7 +50,7 @@ const SubHeader = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="ml-2 p-1 pl-3 rounded-full border border-gray-300 bg-slate-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-              style={{ width: "200px" }}
+              style={{ width: "13vw" }}
             />
           )}
         </div>
@@ -117,9 +117,6 @@ const SubHeader = ({
             <span className="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full px-1">
               3 {/* Cart count */}
             </span>
-          </div>
-          <div className="p-2 rounded-full hover:bg-gray-100 transition-all cursor-pointer">
-            <FaUser className="text-gray-700 text-xl" />
           </div>
         </div>
       </div>

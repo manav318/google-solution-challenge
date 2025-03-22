@@ -6,9 +6,11 @@ const ProductCard = ({ product, imageObserver }) => {
   return (
     <div
       key={product.id}
-      className="product-card border p-2 rounded-lg shadow-lg cursor-pointer h-[23vw] w-[23vw]"
+      className="product-card border p-2 rounded-lg shadow-lg cursor-pointer h-[23vw] w-[23vw] relative"
     >
-      <div className="h-full w-full">
+      <p className="font-bold text-sm bg-blue-400 bg-opacity-50 text-white px-3 py-1 rounded-br-lg absolute top-0 left-0 z-10">{product.category}</p>
+
+      <div className="h-full w-full ">
         <DirectionAwareHover 
           imageUrl={product.image}
           className="h-full w-full !aspect-square"
