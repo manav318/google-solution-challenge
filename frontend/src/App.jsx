@@ -20,6 +20,7 @@ import UserDashboard from "./pages/UserDashboard.jsx";
 import SellerDashboard from "./pages/SellerDashboard.jsx";
 import UploadProducts from "./pages/UploadProducts.jsx";
 import Navbar from "./components/NavBar.jsx";
+import Creators from "./pages/Creators.jsx";
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/dashboard-user" element={<UserDashboard/>} />
           <Route path="/dashboard-seller" element={<SellerDashboard/>} />
           <Route path="/seller-upload-product" element={<UploadProducts/>} />
+          <Route path="/creators" element={<Creators/>} />
         </Routes>
       </div>
       
