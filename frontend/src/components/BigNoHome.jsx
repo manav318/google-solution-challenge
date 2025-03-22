@@ -45,18 +45,18 @@ const Count = () => {
         };
     }, []);
 
-    return (  
-        <div 
+    return (
+        <div
             ref={sectionRef}
-            className="w-screen h-[500px] bg-slate-300 mt-10 relative flex justify-center items-center overflow-hidden"
+            className="w-screen h-[68.5vh] bg-slate-300 mt-[5vh] relative flex justify-center items-center overflow-hidden"
         >
-            <video 
+            <video
                 ref={videoRef}
                 autoPlay={false} // Prevent autoplay before visible
-                loop 
-                muted 
+                loop
+                muted
                 preload="auto" // Preload video
-                className="absolute h-[1540px] w-[500px] object-cover mx-auto transform -rotate-90"
+                className="absolute h-[100vw] w-[68.5vh] object-cover mx-auto transform -rotate-90"
                 style={{ transform: 'rotate(-90deg) translate3d(0, 0, 0)' }} // Force hardware acceleration
             >
                 <source src="/videos/wave_vid1.mp4" type="video/mp4" />
@@ -64,21 +64,21 @@ const Count = () => {
             </video>
 
             {/* Text Content */}
-            <div className="relative z-10 text-white text-center flex flex-col items-center justify-between h-full py-5">
+            <div className="relative z-10 text-white text-center flex flex-col items-center justify-between h-full py-[5vh]">
                 {/* Top Text */}
-                <p className={`font-serif text-5xl font-bold transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+                <p className={`font-serif text-[5vh] font-bold transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
                     You! Have Helped Uplift
                 </p>
 
                 {/* Number with delayed fade-in */}
-                <div 
-                    className={`text-[200px] font-black tracking-[0.2em] transition-opacity duration-1000 ${showNumber ? "opacity-100" : "opacity-0"}`}
+                <div
+                    className={`text-[20vh] font-black tracking-[0.2em] transition-opacity duration-1000 ${showNumber ? "opacity-100" : "opacity-0"}`}
                 >
                     42069
                 </div>
 
                 {/* Bottom Text */}
-                <p className={`font-serif text-4xl font-semibold transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+                <p className={`font-serif text-[4vh] font-semibold transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
                     People from Poverty*
                 </p>
             </div>
