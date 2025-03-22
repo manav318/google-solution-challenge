@@ -6,7 +6,7 @@ import CampProfiles from "../components/CampProfiles.jsx"
 const dash = () => {
     return (
         <div className="mt-[6vh] flex flex-col items-center">
-            <div className="flex w-full p-1">
+            <div className="flex justify-between w-full p-[0.2vh]">
                 <GoogleMaps />
                 <NumCard />
             </div>
