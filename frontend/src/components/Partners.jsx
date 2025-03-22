@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const partners = () => {
     return (  
-        <div className="w-screen bg-white-400 m-0 h-[600px] relative items-center py-4">
+        <div className="w-screen bg-white-400 m-0 h-[82vh] relative items-center py-4">
             <div className="text-blue-950 font-sans text-5xl text-center mt-5">
                 OUR ESTEEMED PARTNERS
             </div>
