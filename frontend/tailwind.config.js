@@ -22,7 +22,7 @@ export default {
   				'Water Special',
   				'cursive'
   			],
-
+        	dotgothic: ['"DotGothic16"', 'sans-serif'],
   		},
   		backgroundImage: {
   			'gradient-custom': 'linear-gradient(to bottom, #0c1e4a, #3264a8)'
