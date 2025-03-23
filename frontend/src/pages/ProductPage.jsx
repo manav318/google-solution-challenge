@@ -12,17 +12,17 @@ const Product = () => {
     const [showReviewForm, setShowReviewForm] = useState(false);
     const [newQuestion, setNewQuestion] = useState("");
     const [newAnswer, setNewAnswer] = useState("");
-    const [summary,setSummary]=useState("")
+    const [summary, setSummary] = useState("")
     useEffect(() => {
-        
-        
+
+
         const foundProduct = products.find(p => p.id === parseInt(id));
         setProduct(foundProduct);
         if (foundProduct) {
             summarize(foundProduct);
         }
-        
-        
+
+
     }, [id]);
 
     const summarize = async (product) => {
@@ -37,7 +37,7 @@ const Product = () => {
     };
 
     // Get similar products using similarProductIds
-    const similarProducts = product ? 
+    const similarProducts = product ?
         product.similarProductIds.map(id => products.find(p => p.id === id)) : [];
 
     const handleAddFAQ = () => {
@@ -49,7 +49,7 @@ const Product = () => {
             setNewAnswer("");
         }
     };
-    
+
     if (!product) return <div>Loading...</div>;
 
     return (
@@ -125,7 +125,7 @@ const Product = () => {
             {/* Dropdown Sections */}
             <div className="w-[70vw] mx-auto">
                 <div className="mb-5">
-                    <div 
+                    <div
                         className="p-4 border border-gray-200 cursor-pointer flex justify-between items-center"
                         onClick={() => setShowDescription(!showDescription)}
                     >
@@ -140,7 +140,7 @@ const Product = () => {
                 </div>
 
                 <div className="mb-5">
-                    <div 
+                    <div
                         className="p-4 border border-gray-200 cursor-pointer flex justify-between items-center"
                         onClick={() => setShowFeatures(!showFeatures)}
                     >
@@ -161,7 +161,7 @@ const Product = () => {
 
             {/* FAQ Section */}
             <div className="w-[70vw] mx-auto mb-10">
-                <div 
+                <div
                     className="p-4 border border-gray-200 cursor-pointer flex justify-between items-center"
                     onClick={() => setShowFAQ(!showFAQ)}
                 >
@@ -210,10 +210,10 @@ const Product = () => {
                     {similarProducts.map((product) => (
                         <div key={product.id} className="flex-shrink-0">
                             <div className="w-[200px] h-[200px]">
-                                <img 
-                                    src={product.image} 
-                                    alt={product.name} 
-                                    className="w-full h-full object-cover" 
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full h-full object-cover"
                                 />
                             </div>
                             <p className="mt-2">{product.name}</p>
@@ -226,7 +226,7 @@ const Product = () => {
             {/* Reviews Section */}
             <div className="w-[70vw] mx-auto mb-10">
                 <h3 className="text-2xl mb-4">Reviews</h3>
-                <button 
+                <button
                     className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 mb-4"
                     onClick={() => setShowReviewForm(!showReviewForm)}
                 >
@@ -234,7 +234,7 @@ const Product = () => {
                 </button>
                 {showReviewForm && (
                     <div className="p-4 border border-gray-200 rounded-lg">
-                        <textarea 
+                        <textarea
                             className="w-full p-2 border border-gray-200 rounded-lg mb-2"
                             placeholder="Write your review..."
                             rows="4"
@@ -248,8 +248,11 @@ const Product = () => {
 
             {/* Summary Section */}
             <div className="w-[70vw] mx-auto mb-10">
-                <h3 className="text-2xl mb-4">Summary by Gemini</h3>
-                <p className="p-4 border border-gray-200 rounded-lg">
+                <div className="flex items-center">
+                    <h3 className="text-2xl mb-4">Summary by </h3>
+                    <img className="w-[7vw] ml-2 mb-6" src="/Google_Gemini_logo.svg.png" alt="geminiLogo" />
+                </div>
+                <p className="p-4 rounded-lg border-2 border-transparent animate-gradient-border">
                     {summary}
                 </p>
             </div>
