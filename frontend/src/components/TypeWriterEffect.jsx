@@ -6,21 +6,21 @@ export function TypewriterEffectSmoothDemo() {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
 
   const sentences = [
-    [{ text: "GENUITY", className: "text-yellow-500 dark:text-gray-300 font-roboto-mono text-7xl" }],
+    [{ text: "GENUITY", className: "text-yellow-500 dark:text-gray-300 font-roboto-mono text-[4vh] md:text-[5vh] lg:text-[7vh]" }],
     [
-      { text: "Hope", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "Help ", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "and ", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "a ", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "Future ", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "for ", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "All.", className: "text-yellow-500 dark:text-yellow-400 font-roboto-mono text-6xl" }
+      { text: "Hope", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "Help ", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "and ", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "a ", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "Future ", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "for ", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "All.", className: "text-yellow-500 dark:text-yellow-400 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" }
     ],
     [
-      { text: "Equality ", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "Empowers ", className: "text-yellow-500 dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "Poverty ", className: "text-white dark:text-gray-300 font-roboto-mono text-6xl" },
-      { text: "Disappears.", className: "text-white dark:text-yellow-400 font-roboto-mono text-6xl" }
+      { text: "Equality ", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "Empowers ", className: "text-yellow-500 dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "Poverty ", className: "text-white dark:text-gray-300 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" },
+      { text: "Disappears.", className: "text-white dark:text-yellow-400 font-roboto-mono text-[3vh] md:text-[4vh] lg:text-[6vh]" }
     ]
   ];
 
