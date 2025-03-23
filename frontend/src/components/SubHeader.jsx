@@ -27,7 +27,7 @@ const SubHeader = ({
   const [showFilterPanel, setShowFilterPanel] = useState(false);
 
   return (
-    <div className="sub-header flex justify-between items-center sticky top-0 bg-white z-10 p-1 pl-[4vw] pr-[4vw] shadow-sm mt-[4vh]">
+    <div className="sub-header flex justify-between items-center sticky top-0 bg-white z-30 p-1 pl-[4vw] pr-[4vw] shadow-sm mt-[4vh]">
       {/* Product Count */}
       <div className="text-gray-700 font-semibold">
         {filteredProducts.length} Products
