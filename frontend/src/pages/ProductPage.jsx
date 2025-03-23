@@ -29,7 +29,7 @@ const Product = () => {
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_geminiAPIKey);
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         const reviewText = product.reviews.global.map(review => review.text).join(' ') + " " + product.reviews.local.map(review => review.text).join(' ');
-        const prompt = "Summarize the following product reviews in plain text: " + reviewText;
+        const prompt = "Summarize the following product reviews in plain text in 50 words: " + reviewText;
         console.log("prompt: ", prompt);
         const result = await model.generateContent(prompt);
         console.log("result", result);
