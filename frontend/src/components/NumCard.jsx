@@ -9,7 +9,7 @@ const Card = () => {
   ]);
 
   // Final values for each section
-  const finalValues = [1234, 5678, 9012];
+  const finalValues = [1234, 10, 912];
 
   useEffect(() => {
     const interval = setInterval(() => {

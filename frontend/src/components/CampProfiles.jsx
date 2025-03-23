@@ -37,6 +37,16 @@ const CampProfile = () => {
         end: "2023-10-07",
         image: "pics/campaign.png",
         coordinates: { lat: 41.8781, lng: -87.6298 }
+      },
+      {
+        id: 4,
+        title: "New Delhi Education Drive",
+        code: "987654",
+        location: "New Delhi, India",
+        start: "2023-10-01",
+        end: "ongoing",
+        image: "pics/campaign.png",
+        coordinates: { lat: 28.6139, lng: 77.2090 }
       }
     ],
     upcoming: [
@@ -153,7 +163,7 @@ const CampProfile = () => {
           campaign.coordinates.lat,
           campaign.coordinates.lng
         );
-        return distance <= 500; // Show campaigns within 500km
+        return distance <= 1000; // Show campaigns within 1000km
       }
       return true;
     })
@@ -171,7 +181,7 @@ const CampProfile = () => {
               onClick={() => setSelectedTab(tab)}
               className={`pb-2 px-4 capitalize text-lg font-medium ${
                 selectedTab === tab
-                  ? "border-b-2 border-blue-600 bg-blue-50 text-blue-700"
+                  ? "border-b-2 border-blue-600  text-blue-700"
                   : "text-gray-600 hover:text-blue-600"
               }`}
             >
