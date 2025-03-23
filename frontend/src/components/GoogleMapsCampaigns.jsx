@@ -15,6 +15,7 @@ const Map = () => {
     { lat: 25.2048, lng: 55.2708 }, // Dubai
     { lat: 19.4326, lng: -99.1332 }, // Mexico City
     { lat: 55.7558, lng: 37.6173 }, // Moscow
+    { lat: 14.6139, lng: 77.2090 } //New Delhi
   ];
 
   // Convert locations to the format required by the WorldMap component
