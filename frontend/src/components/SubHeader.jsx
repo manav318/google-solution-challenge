@@ -46,9 +46,12 @@ const SubHeader = ({
           {showSearchBar && (
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Search products"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.toLowerCase();
+                setSearchQuery(value);
+              }}
               className="ml-2 p-1 pl-3 rounded-full border border-gray-300 bg-slate-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               style={{ width: "13vw" }}
             />
