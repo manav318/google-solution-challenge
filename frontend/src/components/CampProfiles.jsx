@@ -139,8 +139,12 @@ const CampProfile = () => {
     return R * c; // Distance in km
   };
 
+  const campaignsToFilter = (selectedTab === "all" || selectedTab === "nearMe")
+    ? allCampaigns
+    : campaigns[selectedTab];
+
   // Filter campaigns based on selected tab and search query
-  const filteredCampaigns = (selectedTab === "all" ? allCampaigns : campaigns[selectedTab])
+  const filteredCampaigns = campaignsToFilter
     .filter((campaign) => {
       if (selectedTab === "nearMe" && userLocation) {
         const distance = calculateDistance(
