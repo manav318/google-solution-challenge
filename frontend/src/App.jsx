@@ -47,6 +47,7 @@ const App = () => {
           <Route path="/dashboard-seller" element={<SellerDashboard/>} />
           <Route path="/seller-upload-product" element={<UploadProducts/>} />
           <Route path="/creators" element={<Creators/>} />
+          <Route path="/product/:id" element={<ProductPage />} /> {/* Update this route */}
         </Routes>
       </div>
       
