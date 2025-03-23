@@ -102,7 +102,8 @@ frontend/
 │   │   ├── Support.jsx
 │   │   ├── TermsAndCondition.jsx
 │   │   ├── UploadProducts.jsx
-│   │   └── UserDashboard.jsx
+│   │   ├── UserDashboard.jsx
+│   │   └── Creators.jsx           
 │   ├── hooks/
 │   │   ├── useAuth.js
 │   │   ├── useCart.js
@@ -302,18 +303,26 @@ This page displays the campaign dashboard with Google Maps integration.
 
 This page displays detailed product information and allows users to purchase items.
 
-**Accessible at:** `/store/product-page`
+**Accessible at:** `/product/:id`
 
 **Features:**
-- Image gallery with thumbnails
-- Product details and pricing
-- Seller information and profile
+- Image gallery with thumbnails and interactive viewer
+- Detailed product information display
+- Seller profile section with bio and stats
 - Buy now and add to cart functionality
-- Expandable sections for description, features, and FAQs
-- Similar products recommendations
-- Customer reviews with global and local filtering
-- Review submission form
-- AI-powered summary by Gemini
+- Expandable sections for:
+  - Product description
+  - Features list
+  - FAQ section with user question submission
+- Similar products carousel
+- Customer reviews with:
+  - Global and local review filtering
+  - Review submission form
+  - AI-powered review summary by Google Gemini
+  - Star rating display
+- Interactive dropdowns for content sections
+- Expected delivery information
+- Responsive layout with product images
 
 ### UserDashboard.jsx
 
@@ -337,13 +346,26 @@ This page offers sellers a comprehensive view of their business performance and 
 **Accessible at:** `/dashboard-seller`
 
 **Features:**
-- Analytics dashboard with key metrics
-- Total orders, revenue, and products sold
-- Real-time sales tracking
-- Order management system
-- Payment summary and history
-- Product inventory management
-- Performance graphs and charts
+- Interactive analytics dashboard with:
+  - Real-time performance metrics
+  - Dynamic area charts
+  - Sales trends visualization
+  - Revenue tracking
+- Business metrics display:
+  - Total orders
+  - Revenue overview
+  - Products sold
+  - Customer engagement
+- Advanced data tables for:
+  - Order management
+  - Inventory tracking
+  - Customer insights
+- Sidebar navigation with:
+  - Quick access links
+  - Performance summary
+  - Profile settings
+- Inset layout design for better organization
+- Responsive grid layout for statistics cards
 
 ### UploadProducts.jsx
 
@@ -359,6 +381,19 @@ This page allows sellers to add and manage their product listings.
 - Product variation options
 - SEO optimization fields
 - Draft and publish functionality
+
+### Creators.jsx
+
+This page showcases the team members who developed the platform.
+
+**Accessible at:** `/creators`
+
+**Features:**
+- Team member profiles
+- Social media links (LinkedIn, GitHub, Instagram)
+- Profile images
+- Professional descriptions
+- Responsive grid layout
 
 ## Development Guide
 
@@ -530,3 +565,4 @@ const handleSubmit = async (e) => {
   console.log(json);
 };
 ```
+````
