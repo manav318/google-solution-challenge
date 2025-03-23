@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { products } from './Store.jsx';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const Product = () => {
     const { id } = useParams();
@@ -11,11 +12,29 @@ const Product = () => {
     const [showReviewForm, setShowReviewForm] = useState(false);
     const [newQuestion, setNewQuestion] = useState("");
     const [newAnswer, setNewAnswer] = useState("");
-
+    const [summary,setSummary]=useState("")
     useEffect(() => {
+        
+        
         const foundProduct = products.find(p => p.id === parseInt(id));
         setProduct(foundProduct);
+        if (foundProduct) {
+            summarize(foundProduct);
+        }
+        
+        
     }, [id]);
+
+    const summarize = async (product) => {
+        const genAI = new GoogleGenerativeAI(import.meta.env.VITE_geminiAPIKey);
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const reviewText = product.reviews.global.map(review => review.text).join(' ') + " " + product.reviews.local.map(review => review.text).join(' ');
+        const prompt = "Summarize the following product reviews in plain text in 50 words: " + reviewText;
+        console.log("prompt: ", prompt);
+        const result = await model.generateContent(prompt);
+        console.log("result", result);
+        setSummary(result.response.text());
+    };
 
     // Get similar products using similarProductIds
     const similarProducts = product ? 
@@ -30,7 +49,7 @@ const Product = () => {
             setNewAnswer("");
         }
     };
-
+    
     if (!product) return <div>Loading...</div>;
 
     return (
@@ -231,7 +250,7 @@ const Product = () => {
             <div className="w-[70vw] mx-auto mb-10">
                 <h3 className="text-2xl mb-4">Summary by Gemini</h3>
                 <p className="p-4 border border-gray-200 rounded-lg">
-                    This product has received overwhelmingly positive reviews for its quality and durability. Customers appreciate its value for money and timely delivery.
+                    {summary}
                 </p>
             </div>
 
