@@ -4,22 +4,20 @@ import * as React from "react"
 import {
   ArrowUpCircleIcon,
   BarChartIcon,
-  CameraIcon,
-  ClipboardListIcon,
-  DatabaseIcon,
-  FileCodeIcon,
-  FileIcon,
-  FileTextIcon,
-  FolderIcon,
+  BoxIcon,
+  HandshakeIcon,
+  HeartIcon,
+  HistoryIcon,
+  LockIcon,
+  PackageIcon,
+  LeafIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
+  SunIcon,
   HelpCircleIcon,
-  LayoutDashboardIcon,
-  ListIcon,
-  SearchIcon,
   SettingsIcon,
-  UsersIcon,
 } from "lucide-react"
 
-import { NavDocuments } from "@/components/NavDocuments"
 import { NavMain } from "@/components/NavMain"
 import { NavSecondary } from "@/components/NavSecondary"
 import { NavUser } from "@/components/NavUser"
@@ -29,130 +27,104 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar"
+
+const commonUserItems = [
+  {
+    title: "My Orders",
+    url: "/orders",
+    icon: ShoppingBagIcon,
+  },
+  {
+    title: "Buy Again",
+    url: "/buy-again",
+    icon: HistoryIcon,
+  },
+  {
+    title: "My Rewards",
+    url: "/rewards",
+    icon: HeartIcon,
+  },
+  {
+    title: "My Footprint",
+    url: "/footprint",
+    icon: LeafIcon,
+  },
+]
+
+const sellerItems = [
+  {
+    title: "My Products",
+    url: "/seller/products",
+    icon: BoxIcon,
+  },
+  {
+    title: "My Sponsors",
+    url: "/seller/sponsors",
+    icon: HandshakeIcon,
+  },
+  {
+    title: "My Campaigns",
+    url: "/seller/campaigns",
+    icon: ShoppingCartIcon,
+  },
+]
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "ypsd",
+    email: "ypsd@example.com",
+    avatar: "/avatars/ypsd.jpg",
   },
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
-      icon: LayoutDashboardIcon,
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: ListIcon,
-    },
-    {
       title: "Analytics",
-      url: "#",
+      url: "/analytics",
       icon: BarChartIcon,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: FolderIcon,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: UsersIcon,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: CameraIcon,
       isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
     },
     {
-      title: "Proposal",
-      icon: FileTextIcon,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: FileCodeIcon,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      title: "Theme",
+      url: "/theme",
+      icon: SunIcon,
     },
   ],
   navSecondary: [
     {
       title: "Settings",
-      url: "#",
+      url: "/settings",
       icon: SettingsIcon,
     },
     {
-      title: "Get Help",
-      url: "#",
+      title: "Privacy",
+      url: "/privacy",
+      icon: LockIcon,
+    },
+    {
+      title: "Help",
+      url: "/help",
       icon: HelpCircleIcon,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: SearchIcon,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: DatabaseIcon,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: ClipboardListIcon,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: FileIcon,
     },
   ],
 }
 
 export function AppSidebar({ ...props }) {
+  const [isSeller, setIsSeller] = React.useState(false)
+
+  React.useEffect(() => {
+    const sellerId = localStorage.getItem('sellerID')
+    setIsSeller(!!sellerId)
+  }, [])
+
+  const userSpecificItems = [...commonUserItems]
+  if (isSeller) {
+    userSpecificItems.unshift(...sellerItems)
+  }
+
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="offcanvas" className="pt-[6vh]" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -160,17 +132,17 @@ export function AppSidebar({ ...props }) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
+              {/* <a href="#">
                 <ArrowUpCircleIcon className="h-5 w-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
+                <span className="text-base font-semibold">EcoMark</span>
+              </a> */}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        <NavSecondary items={userSpecificItems} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
