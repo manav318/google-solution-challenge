@@ -149,3 +149,21 @@ body {
     }
   }
 }
+
+@keyframes gradient-border {
+  0% {
+    border-image: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899) 1;
+  }
+  50% {
+    border-image: linear-gradient(to right, #8b5cf6, #ec4899, #3b82f6) 1;
+  }
+  100% {
+    border-image: linear-gradient(to right, #ec4899, #3b82f6, #8b5cf6) 1;
+  }
+}
+
+.animate-gradient-border {
+  border: 2px solid transparent;
+  animation: gradient-border 3s infinite linear;
+  border-radius: 0.5rem; /* Match the rounded-lg class */
+}
