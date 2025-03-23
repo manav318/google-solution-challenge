@@ -4,7 +4,7 @@ import AboutUs from "../components/AboutUs.jsx"
 import Partners from "../components/Partners.jsx"
 import PastCampaignHome from "../components/PastCampaignHome.jsx"
 import BigNoHome from "../components/BigNoHome.jsx"
-import CreateCamp from "../components/CreateCamp.jsx"
+import Testimonials from "../components/Testimonials.jsx"
 import Footer from "../components/Footer.jsx"
 const Home = () => {
     return ( 
@@ -14,7 +14,7 @@ const Home = () => {
             <Partners/>
             <PastCampaignHome/>
             <BigNoHome/>
-            <CreateCamp/>
+            <Testimonials/>
             <Footer/>
             
         </div>
