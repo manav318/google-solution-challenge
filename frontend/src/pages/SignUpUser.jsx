@@ -26,7 +26,7 @@ const Login = () => {
     
     if(!getApps().length)
         initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    const auth = getAuth();
     
     
     async function signIn(email, password) {
