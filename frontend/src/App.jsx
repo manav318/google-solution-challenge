@@ -50,8 +50,9 @@ const App = () => {
           <Route path="/seller-upload-product" element={<UploadProducts/>} />
           <Route path="/creators" element={<Creators/>} />
           <Route path="/product/:id" element={<ProductPage />} /> 
-          <Route path="/community" element={<Community />} />
           <Route path="/campaign/:code" element={<ExploreCampaigns />} />
+          <Route path="/product/:id" element={<ProductPage />} /> 
+          <Route path="/community" element={<Community />} />
         </Routes>
       </div>
       
