@@ -195,6 +195,4 @@ The application can be deployed using various platforms:
 4. Push to branch
 5. Create Pull Request
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
