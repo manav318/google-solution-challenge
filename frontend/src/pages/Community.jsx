@@ -28,7 +28,7 @@ const Community = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Page Title */}
-      <div className="text-center mt-6">
+      <div className="text-center mt-10">
         <h1 className="text-3xl font-bold text-blue-900">COMMUNITIES TO EXPLORE</h1>
       </div>
 
