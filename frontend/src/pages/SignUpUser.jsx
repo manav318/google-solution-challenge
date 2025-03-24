@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const Login = () => {
@@ -24,9 +24,9 @@ const Login = () => {
         appId: import.meta.env.VITE_appID
     };
     
-    
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    if(!getApps().length)
+        initializeApp(firebaseConfig);
+    const auth = getAuth();
     
     
     async function signIn(email, password) {
