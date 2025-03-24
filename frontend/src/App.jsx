@@ -21,6 +21,7 @@ import SellerDashboard from "./pages/SellerDashboard.jsx";
 import UploadProducts from "./pages/UploadProducts.jsx";
 import Navbar from "./components/NavBar.jsx";
 import Creators from "./pages/Creators.jsx";
+import ExploreCampaigns from "./pages/ExploreCampaigns.jsx";
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -47,7 +48,8 @@ const App = () => {
           <Route path="/dashboard-seller" element={<SellerDashboard/>} />
           <Route path="/seller-upload-product" element={<UploadProducts/>} />
           <Route path="/creators" element={<Creators/>} />
-          <Route path="/product/:id" element={<ProductPage />} /> {/* Update this route */}
+          <Route path="/product/:id" element={<ProductPage />} /> 
+          <Route path="/campaign/:code" element={<ExploreCampaigns />} />
         </Routes>
       </div>
       
