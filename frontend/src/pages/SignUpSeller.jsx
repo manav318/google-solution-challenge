@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
-import { initializeApp } from "firebase/app";
+import { initializeApp,getApps } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const SignUpSeller = () => {
@@ -29,9 +29,9 @@ const SignUpSeller = () => {
           appId: import.meta.env.VITE_appID
       };
       
-      
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+      if(!getApps().length)
+        initializeApp(firebaseConfig);
+      const auth = getAuth();
       
       
       async function signIn(email, password) {
