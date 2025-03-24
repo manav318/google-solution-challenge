@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CampProfile = () => {
+  const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [userLocation, setUserLocation] = useState(null);
@@ -16,7 +18,27 @@ const CampProfile = () => {
         start: "2023-07-01",
         end: "2023-08-31",
         image: "pics/campaign.png",
-        coordinates: { lat: 40.7128, lng: -74.0060 }
+        coordinates: { lat: 40.7128, lng: -74.0060 },
+        mode: "In-Person",
+        ageRestriction: "16+",
+        description: "Join us for a summer of educational activities and mentoring.",
+        venue: {
+          name: "Central Community Center",
+          address: "123 Education Ave, New York City, NY"
+        },
+        schedule: [
+          {
+            day: "Week 1",
+            events: [
+              { time: "09:00 - 12:00", title: "Morning Teaching Sessions" },
+              { time: "14:00 - 16:00", title: "Afternoon Activities" }
+            ]
+          }
+        ],
+        sponsors: [
+          { name: "EduTech", logo: "/edutech-logo.png" },
+          { name: "Learning Foundation", logo: "/learning-logo.png" }
+        ]
       },
       {
         id: 2,
@@ -26,7 +48,27 @@ const CampProfile = () => {
         start: "2023-09-01",
         end: "2023-09-30",
         image: "pics/campaign.png",
-        coordinates: { lat: 37.7749, lng: -122.4194 }
+        coordinates: { lat: 37.7749, lng: -122.4194 },
+        mode: "Hybrid",
+        ageRestriction: "12+",
+        description: "Teaching technology to underprivileged kids",
+        venue: {
+          name: "SF Tech Hub",
+          address: "456 Tech Street, San Francisco, CA"
+        },
+        schedule: [
+          {
+            day: "Monday to Friday",
+            events: [
+              { time: "10:00 - 12:00", title: "Coding Basics" },
+              { time: "14:00 - 16:00", title: "Hands-on Projects" }
+            ]
+          }
+        ],
+        sponsors: [
+          { name: "TechCorp", logo: "/techcorp-logo.png" },
+          { name: "KidsFirst", logo: "/kidsfirst-logo.png" }
+        ]
       },
       {
         id: 3,
@@ -36,7 +78,27 @@ const CampProfile = () => {
         start: "2023-10-01",
         end: "2023-10-07",
         image: "pics/campaign.png",
-        coordinates: { lat: 41.8781, lng: -87.6298 }
+        coordinates: { lat: 41.8781, lng: -87.6298 },
+        mode: "In-Person",
+        ageRestriction: "All Ages",
+        description: "Promoting community health and wellness",
+        venue: {
+          name: "Chicago Community Center",
+          address: "789 Health Ave, Chicago, IL"
+        },
+        schedule: [
+          {
+            day: "Day 1-2",
+            events: [
+              { time: "09:00 - 17:00", title: "Health Screenings" },
+              { time: "14:00 - 16:00", title: "Wellness Workshops" }
+            ]
+          }
+        ],
+        sponsors: [
+          { name: "HealthCare Plus", logo: "/healthcare-logo.png" },
+          { name: "Wellness Foundation", logo: "/wellness-logo.png" }
+        ]
       },
       {
         id: 4,
@@ -51,14 +113,34 @@ const CampProfile = () => {
     ],
     upcoming: [
       {
-        id: 4,
+        id: 10, // Changed from 4 to 10 to ensure unique IDs
         title: "Winter Clothing Collection",
         code: "654321",
         location: "Chicago, IL",
         start: "2023-12-01",
         end: "2023-12-31",
         image: "pics/campaign.png",
-        coordinates: { lat: 41.8781, lng: -87.6298 }
+        coordinates: { lat: 41.8781, lng: -87.6298 },
+        mode: "In-Person",
+        ageRestriction: "All Ages",
+        description: "Winter clothing drive for those in need",
+        venue: {
+          name: "Chicago Winter Relief Center",
+          address: "321 Winter St, Chicago, IL"
+        },
+        schedule: [
+          {
+            day: "Week 1-4",
+            events: [
+              { time: "09:00 - 17:00", title: "Donation Collection" },
+              { time: "14:00 - 16:00", title: "Distribution" }
+            ]
+          }
+        ],
+        sponsors: [
+          { name: "WarmHearts", logo: "/warmhearts-logo.png" },
+          { name: "Community First", logo: "/community-logo.png" }
+        ]
       },
       {
         id: 5,
@@ -149,6 +231,11 @@ const CampProfile = () => {
     return R * c; // Distance in km
   };
 
+  const handleExploreClick = (campaign) => {
+    // Pass the entire campaign object instead of just the code
+    navigate(`/campaign/${campaign.code}`, { state: { campaignData: campaign } });
+  };
+
   const campaignsToFilter = (selectedTab === "all" || selectedTab === "nearMe")
     ? allCampaigns
     : campaigns[selectedTab];
@@ -217,7 +304,9 @@ const CampProfile = () => {
                 <p className="text-gray-600">
                   {new Date(campaign.start).toLocaleDateString()} - {new Date(campaign.end).toLocaleDateString()}
                 </p>
-                <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                onClick={() => handleExploreClick(campaign)} key={campaign.code}
+                >
                   Explore
                 </button>
               </div>
