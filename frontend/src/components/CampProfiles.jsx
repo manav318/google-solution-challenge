@@ -53,7 +53,7 @@ const CampProfile = () => {
     ],
     upcoming: [
       {
-        id: 4,
+        id: 10, // Changed from 4 to 10 to ensure unique IDs
         title: "Winter Clothing Collection",
         code: "654321",
         location: "Chicago, IL",
