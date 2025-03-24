@@ -22,6 +22,7 @@ import UploadProducts from "./pages/UploadProducts.jsx";
 import Navbar from "./components/NavBar.jsx";
 import Creators from "./pages/Creators.jsx";
 import Community from "./pages/Community.jsx";
+import ExploreCampaigns from "./pages/ExploreCampaigns.jsx";
 // import "@fontsource/aclonica";
 const App = () => {
   
@@ -49,7 +50,8 @@ const App = () => {
           <Route path="/seller-upload-product" element={<UploadProducts/>} />
           <Route path="/creators" element={<Creators/>} />
           <Route path="/product/:id" element={<ProductPage />} /> 
-          {<Route path="/community" element={<Community />} />}
+          <Route path="/community" element={<Community />} />
+          <Route path="/campaign/:code" element={<ExploreCampaigns />} />
         </Routes>
       </div>
       
