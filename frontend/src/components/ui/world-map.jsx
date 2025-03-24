@@ -25,9 +25,15 @@ export function WorldMap({
   }, []);
 
   const projectPoint = (lat, lng) => {
+    // Map longitude from -180...180 to 0...800 (SVG width)
     const x = (lng + 180) * (800 / 360);
+    // Map latitude from -90...90 to 400...0 (SVG height, inverted)
     const y = (90 - lat) * (400 / 180);
-    return { x, y };
+    // Ensure points stay within SVG bounds
+    return {
+      x: Math.max(0, Math.min(800, x)),
+      y: Math.max(0, Math.min(400, y))
+    };
   };
 
   const createCurvedPath = (start, end) => {
