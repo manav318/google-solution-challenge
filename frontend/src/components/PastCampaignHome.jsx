@@ -9,9 +9,9 @@ const Past = () => {
             </h2>
             <div className="relative h-[125vh]">
                 <div className="w-[3px] h-[105vh] bg-black absolute left-[50%] translate-x-[-50%] top-0"></div>
-                <div className="text-5xl text-black font-bold absolute left-[50%] translate-x-[-50%] top-16">~</div>
-                <div className="text-5xl text-black font-bold absolute left-[50%] translate-x-[-50%] top-80">~</div>
-                <div className="text-5xl text-black font-bold absolute left-[50%] translate-x-[-50%] top-[620px]">~</div>
+                <div className="text-7xl text-blue-600 font-bold absolute left-[50%] translate-x-[-50%] top-[6vh]">.</div>
+                <div className="text-7xl text-blue-600 font-bold absolute left-[50%] translate-x-[-50%] top-[40vh]">.</div>
+                <div className="text-7xl text-blue-600 font-bold absolute left-[50%] translate-x-[-50%] top-[84vh]">.</div>
                 <div className="w-[40%] absolute top-[5vh] left-[5%]">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi recusandae aliquid labore? Nisi eligendi dolores modi explicabo. Quas totam, nihil ea adipisci optio quia quasi magni cumque! Suscipit at dolore veritatis optio illo dolorum nihil accusantium amet! Natus debitis commodi aut explicabo earum id incidunt libero amet repudiandae, cumque odit?
                 </div>
