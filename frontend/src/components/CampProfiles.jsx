@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CampProfile = () => {
+  const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [userLocation, setUserLocation] = useState(null);
@@ -149,6 +151,10 @@ const CampProfile = () => {
     return R * c; // Distance in km
   };
 
+  const handleExploreClick = (campcode) => {
+    navigate(`/campaign/${campcode}`);
+  };
+
   const campaignsToFilter = (selectedTab === "all" || selectedTab === "nearMe")
     ? allCampaigns
     : campaigns[selectedTab];
@@ -217,7 +223,9 @@ const CampProfile = () => {
                 <p className="text-gray-600">
                   {new Date(campaign.start).toLocaleDateString()} - {new Date(campaign.end).toLocaleDateString()}
                 </p>
-                <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                onClick={() => handleExploreClick(campaign.code)} key={campaign.code}
+                >
                   Explore
                 </button>
               </div>
