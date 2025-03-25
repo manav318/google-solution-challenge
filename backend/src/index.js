@@ -63,7 +63,8 @@ app.get("/api/get-uid",async(req,res)=>{
         res.status(401).send({ message: "Unauthorized. Invalid session cookie." });
 }
 })
-
+app.get("/",(req,res)=>{
+    res.status(200).send("Welcome to Genuity!")})
 app.listen(port,()=>{
     console.log(`Listening at Port: ${port}`)
 })
