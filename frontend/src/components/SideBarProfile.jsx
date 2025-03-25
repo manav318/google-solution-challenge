@@ -33,7 +33,7 @@ const SideBarProfile = () => {
     // Function to handle logout
     const handleLogout =async () => {
         // Add your logout logic here
-        await fetch("http://localhost:7000/api/auth/logout",{
+        await fetch("https://google-solution-challenge.onrender.com/api/auth/logout",{
             method: "POST",
             headers: { "Content-Type": "application/json" },
             

@@ -118,7 +118,7 @@ const handleDrop = (e) => {
           else 
             console.log("no base64")
             const response = await axios.post(
-                `http://localhost:7000/api/upload/sellers/${sellerId}/details`,
+                `https://google-solution-challenge.onrender.com/api/upload/sellers/${sellerId}/details`,
                 { details: {
                   aadharNumber:aadharNumber,
                   panNumber:panNumber,

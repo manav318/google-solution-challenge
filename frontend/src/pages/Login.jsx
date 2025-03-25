@@ -40,7 +40,7 @@ const Login = () => {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           const idToken = await userCredential.user.getIdToken(); 
           
-          const response=await fetch("http://localhost:7000/api/auth/login", {
+          const response=await fetch("https://google-solution-challenge.onrender.com/api/auth/login", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ idToken: idToken})
@@ -53,7 +53,7 @@ const Login = () => {
           date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
           const exp="; expires=" + date.toUTCString();
           document.cookie=`loginToken=${json.loginCookie||""}${exp}; path=/;`
-          const details=await fetch(`http://localhost:7000/api/get-role/${uid}`)
+          const details=await fetch(`https://google-solution-challenge.onrender.com/api/get-role/${uid}`)
           const detailsjson=await details.json()
           const role=detailsjson.role
           console.log(role)
