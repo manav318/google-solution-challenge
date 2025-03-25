@@ -39,7 +39,7 @@ const SignUpSeller = () => {
               const userCredential = await signInWithEmailAndPassword(auth, email, password);
               const idToken = await userCredential.user.getIdToken(); 
               
-              const res=await fetch("http://localhost:7000/api/auth/login", {
+              const res=await fetch("https://google-solution-challenge.onrender.com/api/auth/login", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ idToken: idToken})
@@ -80,7 +80,7 @@ const SignUpSeller = () => {
         reader.onloadend = async () => {
             const base64Logo = reader.result.split(",")[1];
             try {
-                const response = await axios.post("http://localhost:7000/api/upload/sellers", {
+                const response = await axios.post("https://google-solution-challenge.onrender.com/api/upload/sellers", {
                     sellerName:sellerName,
                     email:email,
                     password: password,
