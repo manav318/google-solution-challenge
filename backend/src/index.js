@@ -64,7 +64,7 @@ app.get("/api/get-uid",async(req,res)=>{
 }
 })
 app.get("/",(req,res)=>{
-    res.status(200).send("Welcome to Genuity!")})
+    res.status(200).send({"Welcome to Genuity!"})})
 app.listen(port,()=>{
     console.log(`Listening at Port: ${port}`)
 })
