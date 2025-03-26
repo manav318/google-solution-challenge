@@ -34,7 +34,7 @@ const About = () => {
 
                 <div className="h-[89.8vh] w-[42.2vw]">
                     <img 
-                        src="/pics/aboutuspic.png" 
+                        src="/pics/aboutus.jpg" 
                         alt="About Us" 
                         className="w-full h-full object-cover"
                     />
