@@ -71,7 +71,7 @@ const SignUpSeller = () => {
     setLogoFile(e.target.files[0]);
   };
 
-  const handleNext=(e)=>{
+  const handleNext=async (e)=>{
     e.preventDefault();
 
     
