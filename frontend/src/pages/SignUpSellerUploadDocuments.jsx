@@ -30,7 +30,7 @@ const UploadDocuments = () => {
 
   // Google Maps API
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "VITE_apiKey", // Replace with your Google Maps API key
+    googleMapsApiKey: import.meta.env.VITE_googleMapsApiKey, // Replace with your Google Maps API key
   });
 
   // Calculate progress dynamically
