@@ -1,5 +1,5 @@
 const admin=require("firebase-admin")
-const credentials=process.env.firebaseConfig
+const credentials=JSON.parse(process.env.firebaseConfig)
 
 admin.initializeApp({
     credential:admin.credential.cert(credentials),
