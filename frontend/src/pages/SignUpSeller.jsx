@@ -91,9 +91,10 @@ const SignUpSeller = () => {
                 console.log("Seller created successfully!");
                 //navigate to captcha
                 
-                navigate('/sign-up-seller-upload-documents');
+                
                 console.log(response);
                 signIn(email,password)
+                navigate("/dashboard-seller")
                 
             } catch (error) {
                 console.error("Error creating seller:", error);
