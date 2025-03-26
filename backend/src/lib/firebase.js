@@ -1,5 +1,5 @@
 const admin=require("firebase-admin")
-const credentials=require(".../firebaseService.json")
+const credentials=require("/etc/secrets/firebaseService.json")
 
 admin.initializeApp({
     credential:admin.credential.cert(credentials),
