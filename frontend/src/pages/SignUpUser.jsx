@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // State for form inputs
@@ -9,7 +10,7 @@ const Login = () => {
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const navigate = useNavigate();
 
 
 
@@ -46,9 +47,11 @@ const Login = () => {
           date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
           const exp="; expires=" + date.toUTCString();
           document.cookie=`loginToken=${json.loginCookie||""}${exp}; path=/`
+          navigate("/dashboard-user")
         } catch (error) {
             console.error("Error signing in:", error.message);
         }
+        
     }
 
 
