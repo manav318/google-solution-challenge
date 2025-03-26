@@ -102,10 +102,17 @@ VITE_BACKEND_URL=http://localhost:7000
 
 ### Backend (.env)
 ```env
-PORT=7000
-cloudName=cloudinary_cloud_name
-cloudinaryAPIKey=cloudinary_api_key
-cloudinaryAPISecret=cloudinary_api_secret
+apiKey=firebase_api_key
+authDomain=<your_project>.firebaseapp.com
+databaseURL=https://<your_project>-default-rtdb.firebaseio.com
+projectId=<your_project>ID
+storageBucket=<your_project>.firebasestorage.app
+messagingSenderId=your_firebase_messagingSenderID
+appId=your_firebase_appID
+measurementId=your_firebase_measurementID
+cloudName=your_cloudinary_cloud_name
+cloudinaryAPIKey=your_cloudinary_api_key
+cloudinaryAPISecret=your_cloudinary_api_secret
 ```
 
 ## Common Issues and Solutions
