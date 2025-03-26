@@ -94,7 +94,6 @@ const SignUpSeller = () => {
                 
                 console.log(response);
                 signIn(email,password)
-                navigate("/dashboard-seller")
                 
             } catch (error) {
                 console.error("Error creating seller:", error);
