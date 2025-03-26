@@ -47,7 +47,7 @@ const Login = () => {
           date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
           const exp="; expires=" + date.toUTCString();
           document.cookie=`loginToken=${json.loginCookie||""}${exp}; path=/`
-          navigate("/dashboard-user")
+          
         } catch (error) {
             console.error("Error signing in:", error.message);
         }
@@ -76,6 +76,7 @@ const Login = () => {
       console.log(json)
 
       signIn(emailOrPhone,password)
+      navigate("/dashboard-user")
     }
     catch(error){
       console.log("Error: ",error)
