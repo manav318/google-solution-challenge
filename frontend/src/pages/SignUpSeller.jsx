@@ -71,10 +71,10 @@ const SignUpSeller = () => {
     setLogoFile(e.target.files[0]);
   };
 
-  const handleNext=(e)=>{
+  const handleNext=async (e)=>{
     e.preventDefault();
 
-    navigate('/sign-up-seller-upload-documents');
+    
     const reader = new FileReader();
         reader.readAsDataURL(logoFile);
         reader.onloadend = async () => {
@@ -89,11 +89,13 @@ const SignUpSeller = () => {
                 const { sellerId } = response.data;
                 sessionStorage.setItem("sellerId", sellerId)
                 console.log("Seller created successfully!");
+                
                 //navigate to captcha
                 
-                navigate('/sign-up-seller-upload-documents');
+                
                 console.log(response);
                 signIn(email,password)
+                navigate('/sign-up-seller-upload-documents');
                 
             } catch (error) {
                 console.error("Error creating seller:", error);
