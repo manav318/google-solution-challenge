@@ -200,6 +200,7 @@ const SignUpSeller = () => {
                 Login
               </Link>
             </p>
+            </p>
 
             {/* Footer Links */}
             <div className="mt-3 text-center space-x-4">
